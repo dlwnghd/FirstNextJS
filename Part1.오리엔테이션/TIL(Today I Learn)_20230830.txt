@@ -1,0 +1,252 @@
+Part 1. 오리엔테이션
+
+    Ch 01.오리엔테이션
+        01. document.designMode = 'On';
+            - 개발자 모드에서 쉽게 화면에 있는 텍스트를 수정할 수 있다.
+            - 버튼에 있는 텍스트를 수정할 때는 해당 영역을 드래그하면 수정이 가능하다.
+
+    Ch 02.Next.js 소개
+        ⭐01.Next.js 소개 및 도구 - ⭐환경 설정⭐
+            - Next.js란 무엇인가?(정의)
+                공식 정의 : The React Framework for Production(제품을 위한 리액트 프레임워크)
+                Vercel에서 관리
+                static, server render, typescript를 서포트
+                영리한 빌딩, 라우팅 프로 패칭, 여러 configuration을 설치할 필요가 없다.
+
+            - 프레임 워크 vs 라이브러리
+                수업에서의 정의 :
+                    - 프레임워크는 기반 구조 vs 라이브러리는 개발 편의 도구들
+                    - 제어 주도권 프레임워크가 가짐 vs 제어 주도권 사용자가 가짐
+                    - 프레임워크는 기계(like 굴삭기) vs 라이브러리는 공구(like 펜치니퍼)
+                    - 프레임워크 자유도 상대적으로 작음 vs 라이브러리 자유도 상대적을 큼
+
+                내가 생각하는 정의 :
+                    - 프레임워크는 이미 만들어진 제품을 사용하는 느낌 vs 라이브러리는 레고와 같이 부품을 내가 어떻게 사용하는지에 따라 달라지는 것 같은 느낌
+
+            - 프레임워크의 장점
+                - 개인이 해야할 고민들을 프레임워크 개발자가 미리 하고 반영
+                - 특정 디자인 패턴이나 동작과 기능들을 위한 정의와 방식을 정리해둠
+                - 여러 개발자가 함께 협업할 때 기준점이 됨
+            
+            - ⭐Why Next.js(Next.js를 사용하는 이유는 무엇인가?)⭐
+                - 프론트엔드 개발자들이 가진 고민에 대한 적절한 해결책을 제공
+                - 규모가 있는 서비스 구조 설계를 어떻게 할 것인가?
+                - 개발환경 / 코드 분할 / 파일 기반 구조
+                - SEO(검색 엔진 최적화)
+                - 프론트엔드에 필요한 간단한 API 구성
+                - 손쉬운 배포 시스템 Vercel => 자회사라서 그런듯
+
+            - Next.js의 대체재는 없나?
+
+                Next.js는 대표적인 React 프레임워크로서 자리를 공고히 하고 있음
+                Vercel의 비전 We enable developers to build and publish wonderful things
+
+                대체재로는 Gatsby / Remix 등이 있음
+
+            - ⭐Version⭐
+                - 강의 내 설치 희망
+                    1. Node.js : 16.15.1
+                    2. Yarn    : 1.22.19
+                    3. VSCode  : - 
+                    4. Git     : 환경에 맞춰서 설치
+
+                - 실제 설치 버전
+                    1. Node.js : 18.13.0
+                    2. Yarn    : 1.22.19
+                    3. VSCode  : - 
+                    4. Git     : 환경에 맞춰서 설치
+
+            - Next.js 프로젝트 띄워보기
+
+            ```
+            npx create-next-app nextjs-blog --use-npm --example "https://github.com/vercel/next-learn/tree/master/basics/learn-starter"
+            ```
+            npx create-next-app [프로젝트명] --use-npm --example
+
+            [⚠️터미널 warning⚠️]
+            Need to install the following packages:
+            create-next-app@13.4.19
+            Ok to proceed? (y) 
+            
+            - next 프로젝트를 생성하기 위한 라이브러리가 미설치 되어 있었던 것 같다.
+
+            - 실행 시
+                npm run dev : npm의 개발자 모드로 실행
+                yarn        : yarn으로 실행 할 수 있도록 yarn 추가 설치
+                yarn dev    : yarn의 개발자 모드로 실행
+
+        02.Next.js로 만드는 사례 둘러보기(showcase-example)
+            - Wappalyzer 크롬 익스텐션
+                - 웹페이지가 어떤 기술을 활용했는지 확인할 수 있는 도구
+
+            - VSCode Extention
+                - React Snippets : react 객체생성 단축키 및 기능 지원
+                - ESLint         : 코딩 컨벤션 맞춰주는 것으로 기억(husky랑 같이 사용했던 것으로 기억함)
+                - Prettier       : 라인 색상 맞춰줌
+                - Bracket Pair   : 괄호 색상 맞춤
+
+Part 2. Next.js 시작하기
+
+    Ch 01.Next.js 기본 기능
+        01.Next.js 기본1(프레임워크 구조)
+
+            - nextjs-blog 프로젝트를 재실행해보자
+                pages/index.js : 기본 렌더링 부모 페이지
+                public/favicon.ico
+                public/vercel.svg
+                package.json : 프로젝트에서 실행할 수 있는 node 명령어가 있음
+
+            - VS 설정들 중에 View(보기) > 명령 팔레트 > `code` 입력 > Shell Command > ⚠️Shell Command가 활성화 되지 않음⚠️
+            - 다른 Next.js를 이용한 프로젝트들의 Repo들을 다운받아서 보는데 README를 보는게 제일 베스트 인 것 같다.
+            - 프로젝트 마다 다르지만 기본적으로는 아래의 순서로 하면 좋다
+                - yarn
+                - yarn build
+                - yarn start
+
+            VSCode code 명령 추가
+            code commerce 로 킬 수 있음 > ⚠️나는 code치면 따로 나오지 않음⚠️
+
+            Prettier 설정
+                - Format on Save
+                - 파일 > 기본 설정 > 설정 > Default Formatter
+            
+        02.Next.js 기본 2(⭐Data Fetching⭐)
+            Data Fetching : 데이터 가져오기
+
+            왜 시작부터 Data Fetching인가?
+
+            화면에 무엇인가 그리려면 결국 어디선가 Data 를 가져와야 함 
+                - 물론 Data 없이 💀스켈레톤UI를 통해 미리 데이터를 나타낼 곳의 범위를 구해놓아도 된다.
+
+            Next.js에서 제공하는 3 + 1 가지 Data Fetching 방법
+
+            - SSR(Server Side Rendering)
+            - CSR(Client Side Rendering)
+            - SSG(Static Side Generation)
+            - ISR(Incremental Static Regeneration)
+
+            SSR (Server Side Rendering)
+                - 서버가 그린다
+                - 그린다        : 데이터를 가져와서 그린다
+                - 서버가 그린다 : 서버가 데이터를 가져와서 그린다
+
+                > 서버가 이미지 Object(객체) 혹은 json 타입의 데이터를 호출
+
+                ⭐SSR을 담당하는 함수 : getServerSideProps
+                    서버에서 코드가 실행됨 > 클라이언트에서 서버에서 실행된 코드가 확인은 가능하지만 이는 처음 페이지를 호출하여 로딩할 때만 확인이 가능하다
+
+            CSR (Cliend Side Rendering)
+                - 클라이언트가 그린다
+                - 그린다             : 데이터를 가져와서 그린다
+                - 클라이언트가 그린다 : 클라이언트가 데이터를 가져와서 그린다
+
+                - CSR을 담당하는 함수는 따로 존재하지 않음
+
+                - 기존 React 사용법과 동일
+
+            SSG (Static-Side Generation)
+                - 정적인 사이트를 생성한다
+                - 생성한다                : 데이터를 가져와서 그려둔다
+                - 정적인 사이트를 생성한다 : 정적인 사이트를 데이터를 가져와서 그려둔다
+
+                SSG을 담당하는 함수 : getStaticProps(with getStaticPaths)
+
+                - 만약 다수의 유저가 사이트를 접속하였을 경우
+                    - SSR 혹은 CSR이면 계속해서 Data를 Fetching하고 요청해서 호출하기에 
+                      불필요하게 요청되는 정보가 많아 로딩속도 저하, 서버 부하와 같은 여러가지 문제가 생긴다.
+                      (ex.블로그에서 작성한 글의 경우 한번 하나의 글을 로딩하게 되었을 경우 해당 글이 수정 혹은 삭제가 이루어지지 않는한 다시 Fetching을 할 필요가 없음)
+
+                    - 만약 변하지 않는 같은 정보를 계속해서 호출하는 상황을 방지하고자 한다면 정적인 사이트로 하는 것이 오히려 더 좋을 수도 있다.
+
+            ISR (Incremental Static Regeneration)
+                - 증분 정적 사이트를 재생성한다
+                - 재생성한다                   : (특정 주기로) 데이터를 가져와서 다시 그려둔다
+                - 증분 정적 사이트를 재생성한다 : (특정 주기로) 정적인 사이트를 데이터를 가져와서 다시 그려둔다
+
+                - ISR을 담당하는 함수 : getStaticProps with revalidate
+
+        03.Next.js 기본 3(LayOuts - Pages - Images)
+            - Pages : nextJS에서는 url의 경로를 pages폴더 아래에 파일명이 그 경로가 된다.
+                pages/index.js => /
+                pages/ssg.js => /ssg
+                pages/products/[slug].js => /products/*
+                []와 같은 커머스 형식은 아래의 파일타입도 가능하다
+                (js, jsx, ts, tsx)
+
+            - Pre-renders 와 SEO(검색엔진최적화)
+                - Next.js는 모든 페이지를 기본적으로 pre-render 한다.
+                - NextJS의 pages를 다룰 때 Pre-render라는 개념을 사용한다
+                - pre-render : 미리 그려놓는다.
+                    - 기존 SSR방식의 웹어플리케이션은 HTML, JS의 파일이 모두 로딩이 된 후에 사용자 화면에 비춰지면 interaction할 수 있다. => 로딩이 오래 걸린다.
+                      하지만, pre-rendering의 경우 JS파일없이 HTML가 준비가 되면 먼저 랜더링 될 수 있다.
+
+            - Pre-rendering과 SEO(검색엔진최적화)의 상관관계
+                - CSR만 제공한다면, Cliend(브라우저)처럼 동작하지 않는 검색엔진의 경우 아무런 데이터도 조회해갈 수 없다.
+                - Pre-render를 해두면 Client처럼 동작하지 않는 검색엔진에게 필요한 데이터를 제공 할 수 있다.
+
+            - Next.js의 Pre-rendering 방식?
+                - SSG(recommended) & SSR
+                - SSG는 빌드 타임에 pre-render
+                - SSR은 요청 타임에 pre-render (요청할 때마다 부하 발생)
+
+            - SSG 2가지 상황
+                - Page의 내용물들이 외부 데이터에 의존적인 상황
+                - Page Paths 까지 외부 데이터에 의존적인 상황
+                - 첫번째는 getStaticProps만 가지고도 가능
+                - 두번째는 getStaticPaths도 함께 활용해야 가능
+
+            - Layouts
+                - 여러 Page들의 공통 처리
+                - 하나의 공통된 Layout을 쓰는 경우
+                - components/Layouts.js
+                - 컴포넌트 하나를 pages/_app.js 에서 활용하면 됨
+
+                - 여러개의 Layouts을 활용하고 싶은 경우
+                - components/SubLayout.js
+                - Page.getLayout에 getLayout 함수를 제공
+
+            - Images
+                - Next.js가 제공하는 최적화 Imags Component
+                - Improved Performance
+                - Visual Stability(CLS-Cumulative Layout Shift 방지)
+                - Faster PAge Loads(viewport 진입시 로드 / blur 처리)
+                - Asset Flexibility(리사이징)
+
+                - ```bash
+                  npx create-next-app --example image-component image-app
+                  ```
+                  NextJS에서 제공하는 Image컴포넌트의 예제들을 볼 수 있는 템플릿
+
+                - responsive/color 살펴보기
+
+        04. 정리1
+            - Next.js 소개 및 환경 설정
+                - Next.js란?            => 프론트엔드 프레임워크
+                - 프레임워크란?         => 기계 / 미리 정의되어 있음
+                - 사용할 툴들           => Node / Yarn / Git / VSCode
+                - Next.js 프로젝트      => 초간단 실행해보기
+
+            - Next.js로 만든 사례 둘러보기
+                - Wappalyzer            => 웹 페이지에 활용된 기술 확인
+                - Showcases             => Commerce / News / Entertainment...
+                - Examples              => Blog / Commerce / TypeScript / CMS
+                - VSCode Extentions     => Snippets / ESlint / Prettier / Bracket
+
+            - Next.js 프레임워크 구조 살펴보기
+                - Pages                 => url과 매칭되는 것 같음
+                - Commerce 예제         => VSCode 설정 (code / prettier ...)
+                - 에제 특징             => Typescript / Turbo / 실행 명령
+                - 발견                  => fast refresh / slug / api
+
+            - Data Fetching
+                - 페이지를 그리는 방식  => 데이터를 가져와서 그린다
+                - 3 + 1                => SSR / CSR / SSG / ISR
+                - SSG                  => yarn dev 로는 SSR 처럼 동작
+                - 필요에 맞춰서         => SSR은 서버 부하 / SSG + ISR
+                - 발견                  => fast refresh / slug / api
+
+            - Layout / Pages / Image
+                - Pre-rendering         => SEO 와 초기 로딩 속도
+                - SSG vs SSR            => SSG은 빌드 시 / SSR은 요청 시
+                - Layout                => pages/_app.js 활용해서 페이지 공통화
+                - Images                => 최적화된 이미지 활용 util
