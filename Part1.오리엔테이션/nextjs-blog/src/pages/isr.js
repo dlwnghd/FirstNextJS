@@ -1,7 +1,15 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import Head from 'next/head'
+import styles from '../../styles/Home.module.css'
 
-export default function Layout({ children }) {
+export async function getStaticProps() {
+  console.log('isr : 서버에서 실행됨')
+
+  return {
+    props: { time: new Date().toISOString() },
+    revalidate: 1,
+  }
+}
+export default function ISR({ time }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -9,7 +17,9 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>{children}</main>
+      <main>
+        <h1>{time}</h1>
+      </main>
 
       <footer>
         <a
@@ -17,7 +27,7 @@ export default function Layout({ children }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{" "}
+          Powered by{' '}
           <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
         </a>
       </footer>
@@ -54,8 +64,15 @@ export default function Layout({ children }) {
           border-radius: 5px;
           padding: 0.75rem;
           font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+          font-family:
+            Menlo,
+            Monaco,
+            Lucida Console,
+            Liberation Mono,
+            DejaVu Sans Mono,
+            Bitstream Vera Sans Mono,
+            Courier New,
+            monospace;
         }
       `}</style>
 
@@ -64,8 +81,17 @@ export default function Layout({ children }) {
         body {
           padding: 0;
           margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+          font-family:
+            -apple-system,
+            BlinkMacSystemFont,
+            Segoe UI,
+            Roboto,
+            Oxygen,
+            Ubuntu,
+            Cantarell,
+            Fira Sans,
+            Droid Sans,
+            Helvetica Neue,
             sans-serif;
         }
         * {
@@ -73,5 +99,5 @@ export default function Layout({ children }) {
         }
       `}</style>
     </div>
-  );
+  )
 }

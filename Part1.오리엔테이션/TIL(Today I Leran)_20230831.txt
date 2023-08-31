@@ -1,0 +1,40 @@
+Part 2. Next.js 시작하기
+    Ch 01.Next.js 기본 기능
+
+        05. Next.js 기본 4(Routing)
+            - Router
+            - Next.js의 Router 는 file-system 기반 : File이 라우터가 된다?!
+            - pages/ 혹은 src/pages/
+
+            - pages/index.js와 src/pages/index.js
+              둘 다 있다면? 뭐가 우선순위를 가질까?
+              > pages/ 가 우선순위를 가지게 된다.
+
+            - Style 이슈
+                - Layout으로 공통 코드를 빼낸 이후에 스타일이 부분적으로 적용
+            
+            - nextjs-blog 프로젝트 커스텀
+            - commerce프로젝트의 prettier 설정을 그대로 가져와보자
+
+                - yarn add -D prettier
+                - .prettierrc
+                - .prettierignore
+                - prettier-fix 명령 추가
+            
+            - Nested routes
+            - pages/product/firtst-item.js => /product/first-item
+            - pages/settings/my/info.js => /settings/my/info
+
+            - slug
+            - pages/category/[slug].js => /category/:slug (ex. /category/food)
+            - pages/[username]/info.js => /:username/info (ex. /jimmy/info)
+
+            - ...slug
+            - pages/cart/[...slug].js => /cart/* (ex. /cart/2022/06/24)
+
+            
+            [Routing]
+            - Router                => File system을 토대로 구현
+            - pages/ 혹은 src/pages => pages/ 가 우선순위, 하나만 가능
+            - 프로젝트 설정         => prettier / jsconfig.json(절대경로)
+            - Slug                  => 다양한 위계의 Dynamic 제공
