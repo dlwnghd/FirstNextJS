@@ -1,0 +1,226 @@
+Part 2. Next.js 시작하기
+    Ch 01.Next.js 기본 기능
+
+        06. Next.js 기본 5(Shallow Routing)
+        - Dynamic Routes
+            - [slug]값은 어떻게 활용할 것 인가?
+            - pages/category/[slug].js
+            
+            - import { useRouter } from 'next/router'
+            - const router = useRouter⭐
+            - const { slug } = router.query
+
+        - query가 있다면?
+            - /category/food?from=event
+            - {"slug" : "food", "from" : "event" }
+
+        - 궁금증?
+            - ⭐query에도 slug가 있다면?
+            - /category/food?slug=book
+            - query로 받아온 값은 문자열로 처리가 됨
+            - /category/food?from=1&from=1 => {from} => 11
+
+        - 다중 슬러그
+            - pages/[username]/[info].js
+            - const { username, info } = router.query
+            - pages/cart/[...slug].js
+            - const { slug } = router.query
+            - slug는 배열
+
+        - 옵셔널 slug
+            - pages/cart/[...slug].js => /cart로 접근하면 404가 뜬다.
+            - pages/cart/[[...slug]].js 해주면 slug가 존재하지 않아도 받는다.
+
+        - Routing 방법
+            - <Link href="url"><a>url 로</a></Link>
+            - router.push("url")
+        
+        - Shallow Routing
+            - getServerSideProps/ getStaticProps 등을 다시 실행시키지 않고,
+              현재 상태를 잃지 않고 url을 바꾸는 방법
+
+            - 상태는 유지하면서 URL만 바꾸고 싶은 경우?
+            - 사용자가 어떤 동작을 했고, 그 기록을 query로 남기고 싶을 때
+              * query로 남기면 사용자가 새로고침을 해도 유지된다.
+              > ❓전역으로 State(상태값)을 남겨도 되지 않나?
+                > 전역으로 State를 사용하면 사용자가 새로고침을 해도 url(값)은 유지되지 않는가?
+                    > 전역으로 State를 사용하면 Data fetching이 다시 이루어지는가?
+
+            - Data Fetching을 일으키고 싶지 않다면?
+
+            -url을 바꾸는 3가지 방식
+                - location.replace("url") : 로컬 state 유지 안됨(리렌더)
+                    > 가장 고전적인 html방식으로 url을 바꾸는 방법
+
+                - router.push(url): 로컬 state 유지 / data fetching은 일어남
+                - router.push(url, as, {shallow: true}): 로컬 state 유지 / data fetching ❌
+
+        [Shallow Routing]
+            - Dynamic Routes    => slug를 활용하는 방법
+            - 다중 slug         => [user]/[info].js / [...slug].js
+            - 옵셔널 slug       => [[...slug]].js
+            - Shallow Routing   => router.push(url, undefined, {shallow:true})
+
+        07. Next.js 기본 6(API Routes)
+            - API(Application Programing Interface)란?
+                - 응용 프로그래밍 인터페이스
+                - 컴퓨터나 컴퓨터 프로그래밍 사이의 연결
+                - 데이터를 포함하거나 혹은 포함하지 않은 상태에서 호출하여 응답값을 받아오는 것(GET, POST, FETCH...)
+
+            - Frontend Service <-> Backend Service 간의 연결
+                - Frontend Service는 고객과 닿아있고,
+                  Backend Service는 DB에 닿아있다.
+                  
+                - 고객이 DB에 접근하기 위해 FE(Frontend)는 BE(Backend)와 연결되어야하고 이때 API를 활용한다.
+                  BE가 제공해주는 API를 통해 DB의 내용을 활용할 수 있다.
+
+                  고객 <-> FE <-> API <-> BE <-> DB
+
+            - 실제 서비스 예시
+                - 커머스 사이트 - 개발자 도구 - 네트워크 탭
+
+                - 어떤 API를 호출하는지?
+                  2*cm / 마켓 컬*
+
+            - Next.j가 제공하는 API Routes
+                - pages/api/*
+
+            - `/constants` : 고정값들을 저장해두는 저장공간
+
+            - ⭐Dynamic API Routes
+                - pages/api/user-info/[uid].js
+
+            - Client 사이드 Data Fetching
+                - fetch('api/user')
+                  .then((res) => res.json())
+                  .then((data) => {처리})
+
+            - Routing에서 다뤘던 여러 Slug 활용법 적용 가능
+
+                - 다중 Route
+                - /api/post/create.js
+                - /api/post/[pid].js
+                - /api/post/[...slug].js
+                - /api/post/[[...slug]].js
+
+            - API Middlewares
+                - 내장 Middleware의 기능
+                  req.cookies / req.query ...
+
+                - req / res 관련 다양한 기능들은 Middleware 들을 활용할 수 있다.
+                  (ex) CORS (교차 출처 리소스 공유)
+
+            - Response
+                - res.status(code)                          : 상태
+                - res.json(body): serializable object       : json타입의 데이터 
+                - res.redirect(code, url)                   : 상태, 요청을 보낼 경로
+                - res.send(body) : string / object/ Buffer  : HTTP응답값을 보내줌(타입은 string, object, Buffer만 가능)
+
+            [API Routes]
+            - API란?        => 프로그램 간의 연결
+            - API Routes    => Routing과 동일(파일 기반 / Dynamic / Optional(옵셔널))
+            - Middlewares   => 기본으로 제공되는 built in 외 추가 가능
+            - Response      => status / json / redirect / send...
+
+        08. 정리 2
+            [Routing]
+                - Router                    => File system을 토대로 구현
+                - pages/ 혹은 src/pages     => pages/ 가 우선순위, 하나만 가능
+                - 프로젝트 설정             => prettier / jsconfig.json(절대경로)
+                - Slug                      => 다양한 위계의 Dynamic 제공
+
+            [Shallow Routing]
+                - Dynamic Routes            => slug를 활용하는 방법
+                - 다중 slug                 => [user]/[info].js / [...slug].js
+                - 옵셔널 slug               => [[...slug]].js
+                - Shallow Routing           => router.push(url, undefined, {shallow:true})
+
+            [API Routes]
+                - API란?                    => 프로그램 간의 연결
+                - API Routes                => Routing과 동일(파일 기반 / Dynamic / Optional(옵셔널))
+                - Middlewares               => 기본으로 제공되는 built in 외 추가 가능
+                - Response                  => status / json / redirect / send...
+
+Part 3. Practice : 블로그 프로젝트
+    Ch 01.연습 프로젝트 실습
+        01. 프로젝트 시작(Link Component / Client-Side Navigation)
+            - 프레임워크의 기능들을 익히고
+              그 장점을 온전히 이해하기 위해서는
+
+              실제로 서비스를 만들어 봐야한다.
+              > 여러명이서 프로젝트를 하는 것도 중요하지만 혼자서 전반적이 프로젝트를 하나 해내는 것은 그 깊이가 다르다.
+                > 어떤 프레임워크를 사용할지 어떤 DB를 사용할지 등 스스로 선택하기 때문이다.
+
+            - Next.js가 제공하는 여러 기능들
+                - page-based routing system(with dynamic routes)    / 파일명 기반의 라우팅 시스템
+                - Pre-rendering SSG / SSR                           / Static Side Generation(Next.js) / Server Side Rendering(기존 React 방식)
+                - Automatic code splitting for faster page loads    / 페이지 혹은 공통된 단위로 코드를 쪼개서 가져옴
+                - Client-side routing with optimized prefetching    / ❓❓❓
+                - API Routes(with Serverless Functions)             / js파일에서 데이터를 만들어서 테스트해봄 > Mock데이터를 만드는 방법도 있음
+                - Development environment(with Fast Refresh)        / yarn dev로 사용중인 환경
+
+            - ⭐연습 프로젝트(블로그)
+                - https://next-learn-starter.vercel.app/
+
+                - Next.js가 제공하는 blog 예제를 확장시켜보자
+                  프로젝트 생성 - 메인 페이지(블로그 글 리스트) - 블로그 글 상세 페이지 - 배포(vercel)
+
+            - 블로그
+                - 개발자들은 자기만의 블로그를 하나씩(?) 가지고 있다.
+
+                - 꾸준히 공부하고 고민한 부분에 대한 기록
+                - 다른 사람들에게 지식을 공유 + 본인 스스로 기록 + 나에 대해서 홍보
+
+            - 프로젝트 생성
+
+            - ```bash
+              yarn create next-app blog --example
+              "https://github.com/vercel/next-learn/tree/master/basics/learn-starter"
+              ```
+            - prettier 설정도
+
+            - Pages 만들기
+                - pages/posts/first-post.js
+                - 첫번째 글로 이동하기
+
+            - Link Component
+                - <a href='/posts/first-post'>첫번째 글(a tag)</a>
+                - <Link href="/posts/first-post">첫번째 글</Link>
+
+                두 방식의 차이
+                    1. a태그의 경우 Basic HTML방식으로 url을 변경하기 때문에 해당 url에 정의되어있는 모든 파일들을 불러온다.
+                    2. Link컴포넌트의 경우 해당 페이지에서 필요한 js만 호추하기 때문에 웹 페이지의 로딩 속도가 상승한다.
+
+                - Client Side Navigate
+                    - browser에서 url을 직접 쳐서 이동하는 것과 달리
+                      JS 상에서 page 컴포넌트를 교체하는 것
+
+                      확인(background-color를 body에 주고 navigate 해보기)
+
+                - Code Splitting
+                    - Next.js는 Automatic Code Splitting을 제공
+                        - 특정 페이지에 접근 할 때는 해당 페이지를 그릴때 필요한 부분만 로드
+                        - 페이지 이동을 할 땐 목적지 페이지에 필요한 부분만 추가 로드
+                            > ex) [1,2,3,4]의 데이터가 존재 시 만약 현재 페이지에 미리 로드 되어있던 데이터가 [1, 2, 3] 이라면 [4]의 데이터만을 로드하기에 불필요한 요청 및 데이터를 줄일 수 있다. 하지만 이는 다수의 사용자가 사용도 중 아이템이 추가 되었을 때는 효과적이지만 반대로 한명의 유저가 아이템 하나를 수정하게 될 경우에는 치명적이게 작용할 수 있다.
+                        - 이를 통해 성능이 최적화 된다.
+
+                - ⭐Prefetching
+                    - <Link> 컴포넌트를 이용하면, Viewport에 Link 컴포넌트가 노출되었을때
+                      href로 연결된 페이지의 부분을 로드한다.
+                        > 무한 스크롤 당시 사용했던 observer처럼 관측되었을 때 실행(?)하는 듯한 느낌이다.
+
+                      이를 통해 성능을 최적화한다.
+
+                - Link Component
+                    - 본 서비스 외부 링크로 연결 할 때는 <a> tag만 쓰면 됨
+                    - Link Component에 스타일을 줄 때는 <a> tag에 줘야 함
+                        > ⚠️13버전부터는 Link태그 내부에 a태그를 선언할 수 없음
+
+            [Link Component / Client-side Navigate]
+                - 프레임워크 익히는 최상의 방법  => 실제 서비스를 프레임워크로 만들기
+                - Link component               => Next.js에서 제공하는 링크 기능
+                - Client side Navigate         => url로 접근하는 것과 달리 JS 상에서 변경
+                - Prefetching                  => Viewport 내 Link 페이지를 미리 패칭
+
+            ⚠️styled-components를 사용하려고 하였으나 SSR에서 사용하려면 별도로 바벨을 만져주어야 하는 작업이 필요
+                > emotion은 그런 작업 없이 바로 설치해서 사용할 수 있음
