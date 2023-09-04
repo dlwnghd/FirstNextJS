@@ -1,0 +1,203 @@
+Part 3. Practice : 블로그 프로젝트
+    Ch 01.연습 프로젝트 실습
+        02. Layouts - Styling
+            - ⭐public
+            정적 리소스를 Next.js 로 서빙하기 위한 디렉토리
+                - ❓robots.txt(https://www.reddit.com/robots.txt)
+                - images
+
+            - Image Component
+                - <img src="/images/profile.jpg" alt="Jimmy" />
+                - <Image src="/images/profile.jpg" width={144} height={144} alt="Jimmy" />
+
+                - Resizing(responsive 사이즈)
+                - Lazy load(viewport에 들어오면 로드)
+                - 그외 optimization(webp 형태)
+
+                - CLS(Cumulative Layout Shift) : 누적 레이아웃 이동
+                    (ex.width, height...)
+
+                - Image 컴포넌트의 장점
+                    - img 태그는 이미지를 다운로드 받을 때 용량을 크게 그대로 받아오는데
+                    - Next.js에서 제공하는 Image 컴포넌트는 크롬에서 제공하는 webp의 형태(최적화된 이미지 형태)로 받아오기에 이미지의 용량을 최소화 할 수 있다.
+                    - 또한 이전에 배운 Link 컴포넌트처럼 사용자가 화면에서 해당 이미지의 구간을 보게 되었을 때 이미지가 요청되고 데이터를 받아온다.
+
+            - Metadata
+                - 웹 문서로서 제공하는 메타 정보들
+                - <title>제목</title>
+                - https://www.google.com/search?q=react
+
+            - Head Component
+                - title / images / description 등 og(open graph) tag
+                - icon
+                - third party script(ex. google-analytics..)
+
+            - Script Component
+                - ❓strategy(로딩하는 strategy를 어떻게 전략으로 로드할지 props를 연결해줄 수 있음)
+                - ❓onLoad(로드가 되었을 때 어떠한 동작을 하도록 할 수도 있음)
+
+            - Layout
+                - 공통 컴포넌트 만들고
+                  ./layout.module.css 라는 CSS 모듈을 만들어 보자
+
+                - .container 클래스 스타일을 만들고
+                - Layout에서 해당 클래스네임을 사용하면 css가 적용
+
+            - Global CSS
+                - pages/_app.js 만들고
+                - styles/global.css 만들고 전역으로 적용할 스타일을 정의하고
+
+                - _app.js 에서 import '../styles/global.css' 해보자
+                    > jsconfig.json을 활용해서 상대경로보다는 절대경로로 찾을 수 있도록 수정함
+
+                https://nextjs.org/learn/basics/assets-metadata-css/global-styles
+
+            - 스타일 추가
+                - components/layout.module.css 에 스타일 추가
+                - styles/utils.module.css 생성
+                - components/Layout.js 보강
+                - pages/index.js 변경
+
+                - https://nextjs.org/learn/basics/assets-metadata-css/polishing-layout
+
+            [Layouts / Styling]
+                - 정적 리소스               => /public (robots.txt / images 등)
+                - Image component           => 이미지 관련 최적화 기능
+                - Metadata                  => Head / Script
+                - Styling                   => styled-jsx / CSS modules
+
+        03. Pre-rendering / Data Fetching
+            - (⭐질릴만큼⭐) 반복되는 Pre-rendering / Data Fetching
+            - 그만큼 Next.js에 핵심이 되는 개념
+            - SSG(build time) vs SSR(request time)
+
+            - SSG는 미리 정적인 파일을 생성해 두는 것 Build Time에!
+            - SSR는 사용자가 특정 url로 접근하여 요청할 때 서버에서 새로 pre-render
+
+            - Next.js를 활용하면 페이지별로 Pre-rendering 방식을 선택할 수 있다.
+                - getStaticProps를 사용하면 SSG
+                - getServerSideProps를 활용하면 SSR
+
+            - ⭐SSG를 사용하면 좋은 페이지⭐
+                - Marketing pages               // 마케팅 관련
+                - Blog posts                    // 블로그 포스팅
+                - E-commerce product listings   // 커머스의 상품 목록 페이지
+                - Help and documentation        // FAQ, 고객센터, 문서화 페이지
+
+                => 새로 잘 바뀌지 않는 페이지들
+
+                - 적용 여부 선택 기준
+                  사용자가 페이지를 요청하기 전에 pre-render 할 수 있는가? => 미리 화면에 데이터들을 준비할 수 있는가?
+
+                - Yes 라면 SSG
+                  No 라면 SSR 혹은 ISR 혹은 CSR
+
+            - SSG의 2가지 케이스
+                - 외부 데이터 없이 pre-rendering
+                - 외부 데이터를 가져와서 pre-rendering
+
+            - 외부 데이터?
+                - 다른 파일
+                - API
+                - DB 등...
+
+            - 다른 파일을 읽어와보자
+
+                https://nextjs.org/learn/basics/data-fetching/blog-data
+
+                - post/pre-rendering.md
+                - posts/ssg-ssr.md
+
+                - 파일 추가
+            
+            - ---
+              으로 감싸진 metadata를 읽어보자 (YAML Front Matter)
+              ---
+
+                - https://nextjs.org/learn/basics/data-fetching/implement-getstaticprops
+
+                - yarn add gray-matter
+
+                - sort 로직 살펴보기
+                - https://www.google.com/search?q=js+sort
+                    > 버전 차이 때문인지 마지막 조건문이 따로 존재하지 않고 2가지의 경우로만 조건문이 나뉘어져 있어서 3가지 조건으로 다시 수정해주었다.(정답인지는 모름)
+
+            - SSG로 구현 : getStaticProps 활용
+            - SSR로 구현 : getServerSideProps 활용
+            - CSR로 구현 : API Routes 활용
+
+            - Data를 가져오는 함수 getSortedPostsData 의 확장
+                - 다른 File 조회
+                - 외부  api 요청
+                - DB 조회
+
+            ⚠️ 매일매일 SSR, CSR, SSG, ISR에 대해 입으로 말할 수 있도록 연습해야겠다.⚠️
+            - SSR(Server Side Rendering) : 서버쪽에서 데이터를 준비하여 사용자의 화면에 띄우는 것
+            - CSR(Client Side Rendering) : 서버에서 전체 페이지(빈 페이지)를 최초 렌더링하고 사용자가 url입력을 통해 페이지를 요청할 때마다 클라이언트 내(브라우저)에서 랜더링 하는 것을 의미합니다.
+
+            [Pre-rendering / Data Fetching]
+            - Pre-rendering           => SSG 선택 기준
+            - SSG 2가지 케이스        => without data / with data
+            - YAML Front Matter      => Metadata 표기 방식 / gray-matter로 파싱
+            - API Routes            => fs는 server side에서만 가능
+
+        04. Dynamic Routes
+            - md 파일들
+            - posts/ssg-ssr.md
+            - posts/pre-rendering.md
+            
+            - 요구사항
+            - SSG 사용해서
+              url: /posts/ssg-ssr 이면 posts/ssg-ssr.md를 읽어서 보여준다
+              url: /posts/pre-rendering 이면 posts/pre-rendering.md를 읽어서 보여준다
+
+            - /pages/posts/[slug].js 가 떠올랐어야 한다.
+              slug는 편의상 id로 하자
+              저번시간에 posts 목록을 가져올때 id로 파일이름을 전달했던 걸 기억!
+
+            - SSG 활용해서 다이나믹한 page 들을 생성하려면?
+              getStaticPaths 가 필요하다.
+              getStaticPaths 는 생성해둬야 하는 페이지 정보를 배열로 반환해야 한다
+
+            - 포스트 이름을 모두 가져오는 함수(getAllPostIds)
+              https://nextjs.org/learn/basics/dynamic-routes/implement-getstaticpaths
+              id를 가지고 포스트의 내용을 가져오는 함수(getPostData)
+              https://nextjs.org/learn/basics/dynamic-routes/implement-getstaticprops
+
+            - 에러들을 일부러 내면서 고쳐보자
+                - getStaticProps 2번 반복하거나
+                - 함수를 import 하지 않거나
+                - postData를 page에서 props로 받지 않거나
+
+            - *.md 파일을 해석하기 위해서 도구 설치
+                - yarn add remark remark-html
+                - lib/posts.js 의 getPostData 함수를 확장
+                - https://nextjs.org/learn/basics/dynamic-routes/render-markdown
+
+            - remark와 remark-html은
+              markdown을 html 로 치환해주는 역할을 해줌
+              몇가지 작성해보자~~
+
+            - Date formatting 도구 설치
+              yarn add date-fns
+              parseISO
+              format
+            
+            - index.js 에 노출되는 글 목록 폴리싱(polishing)
+              https://nextjs.org/learn/basics/dynamic-routes/polishing-index-page
+
+            - index.js 에 노출되는 글 목록 폴리싱(polishing)
+              https://nextjs.org/learn/basics/dynamic-routes/polishing-index-page
+
+            - getStaticPaths 가 반환하는
+              fallback의 의미?
+              fallback: false, true, ‘blocking’
+
+            [Dynamic Routes]
+            - 하나의 파일로 여러 페이지                 => Dynamic Routes
+            - SSG 시 생성할 목록                       => getStaticPaths (paths 배열 반환)
+            - 도구: md 파싱 / date format             => remark & remark-html / date-fns
+            - getStaticPaths fallback                => 빌드시 생성되지 않은 page에 대한 처리
+                > fallback이 false라면 > 처리하지 않겠다.(404)
+                > fallback이 true라면 > callback 동작으로 "Loading..."을 보여줬다가 데이터가 있다면 화면에 그리겠다.
+                > fallback이 'blocking'이라면 > 안 그리고 있다가 generation되는 순간 그리겠다. 데이터가 없다면 에러발생

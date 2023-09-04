@@ -181,7 +181,7 @@ Part 2. Next.js 시작하기
                       하지만, pre-rendering의 경우 JS파일없이 HTML가 준비가 되면 먼저 랜더링 될 수 있다.
 
             - Pre-rendering과 SEO(검색엔진최적화)의 상관관계
-                - CSR만 제공한다면, Cliend(브라우저)처럼 동작하지 않는 검색엔진의 경우 아무런 데이터도 조회해갈 수 없다.
+                - CSR만 제공한다면, Client(브라우저)처럼 동작하지 않는 검색엔진의 경우 아무런 데이터도 조회해갈 수 없다.
                 - Pre-render를 해두면 Client처럼 동작하지 않는 검색엔진에게 필요한 데이터를 제공 할 수 있다.
 
             - Next.js의 Pre-rendering 방식?
