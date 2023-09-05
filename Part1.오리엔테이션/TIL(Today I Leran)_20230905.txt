@@ -1,0 +1,162 @@
+Part 3. Practice : 블로그 프로젝트
+    Ch 01.연습 프로젝트 실습
+      05. API Routes - 배포하기(1)
+        - index.js 수정하기
+        - ⭐server-side 에서는 API Routes를 사용하지 않아야 한다.
+        - getStaticProps / getStaticPaths 등은 client-side 코드에 포함되지 않는다.
+        - 그렇기에 서버 사이드에서는 DB에 직접 접근하는 등 훨씬 자유도 높은 작업을 할 수 있다.
+
+        - API Routes
+            
+          export default function handler(req, res) {
+            res.status(200).json({message: ‘Hello world’})
+          }
+
+        -요구사항
+          - /post/write 페이지에서
+            새로운 글을 쓸 수 있도록 하라
+
+        - 생각의 순서
+          - Page가 필요하겠네? 여러 input 들을 받을 수 있는…
+          - API 도 필요하겠네? file에 저장할 input을 전달받는…
+          - writePost 함수도 필요하겠네? 실제로 file을 저장하는…
+          - 작성이 성공하면 해당 page로 가는 Link 도 제공하면 좋겠군…
+
+          - pages/post/write.js Page 추가
+          - pages/api/post/write.js API 추가
+          - lib/posts.js 안에 writePost 함수 추가
+        
+      06. API Routes - 배포하기(2)
+        - Fetch API
+          (https://developer.mozilla.org/en-US/docs/Web/API/fetch)
+          fetch() promise는 HTTP error에 의해 reject 되지 않는다.
+
+        - Vercel 로 배포하기
+          - 준비물: github 계정 / 지금까지 만든 blog 코드
+        
+        - 작업 순서
+          - (만약 안했다면) PC에 git을 설치한다.(구글링)
+          - github 에 repository를 만든다.
+          - blog project를 github repo와 연결한다.
+          - blog project를 github repo에 푸시한다.
+          - vercel 과 github 계정을 연동한다.
+          - github repo을 import 하고 배포한다.
+
+        - blog project를 github repo와 연결한다.
+        - blog project를 github repo에 푸시한다.
+          - git init
+          - git remote add origin [복사한 github repo 주소]
+          - git add .
+          - git commit -m “feat: blog deploy”
+          - git push --set-upstream origin main
+
+        - vercel 과 github 계정을 연동한다.
+          github repo을 import 하고 배포한다.
+          https://vercel.com/signup
+          hobby 로 등록
+          https://vercel.com/new
+
+        - 이후에는 해당 repo main 브랜치에 변경사항을 푸시하면
+          Vercel이 알아서 서비스를 배포해준다.
+          PR을 올리면 Preview Mode까지 제공한다.
+
+        [API Routes / 배포하기]
+        - API Routes    => 요청하는 코드는 Client side 에만 두자
+        - POST 요청     => Post를 직접 write 하고 POST 해봄
+        - Vercel로 배포 => 순서대로만 하면 너무 간단
+        - Main 브랜치   => Push 하거나 PR을 올리면 
+        
+      07. 연습 정리
+        [Link Component / Client-side Navigation]
+        프레임워크 익히는 최상의 방법   => 실제 서비스를 프레임워크로 만들기
+        Link component                => Next.js에서 제공하는 링크 기능
+        Client side Navigate          => url로 접근하는 것과 달리 JS상에서 변경
+        Prefetching                   => Viewport 내 Link 페이지를 미리 패칭
+
+        [Layout / Styling]
+        정적 리소스      => /public (robots.txt/images 등)
+        Image component => 이미지 관련 최적화 기능
+        Metadata        => Head / Script
+        Styling         => styled-jsx / CSS modules
+
+        [Pre-rendering / Data Fetching]
+        Pre-rendering       => SSG 선택 기준
+        SSG 2가지 케이스    => without data / with data
+        YAML Front Matter   => Metadata 표기 방식 / gray-matter로 파싱
+        API Routes          => fs는 server side에서만 가능
+                                > ⚠️CSR에서는 사용할 수 없다!⚠️
+
+        [Dynamic Routes]
+        하나의 파일로 여러 페이지    => Dynamic Routes
+        SSG 시 생성할 목록           => getStaticPaths (paths 배열 반환)
+        도구: md 파싱 / date format  => remark & remark-html / date-fns
+        getStaticPaths fallback      => 빌드시 생성되지 않은 page에 대한 처리
+
+        [API Routes / 배포하기]
+        API Routes    => 요청하는 코드는 Client side 에만 두자
+        POST 요청     => Post를 직접 하고 POST 해봄
+        Vercel로 배포 => 순서대로만 하면 너무 간단
+        Main 브랜치   => Push 하거나 PR을 올리면 배포됨
+
+        Vercel Pricing
+          - (https://vercel.com/pricing)
+            > vercel에서 제공하는 hobby(무료 버전)의 최대 repo수는 3개다.
+
+    Ch 02. 블로그 커스텀해보기
+      01. 나만의 블로구 만들기(UI)(1)
+        -  UI 커스텀
+          - 다른 분들이 운영중인 블로그들 중에
+            비슷하게 만들어 보고 싶은 블로그가 있었다면!
+
+          - 없었다면
+            블로그 테마 저장소
+            (https://jamstackthemes.dev/)
+
+            참고할 만한 블로그
+            (https://github.com/timlrx/tailwind-nextjs-starter-blog/)
+
+          - TailwindCSS 적용해보기
+            (https://tailwindcss.com/docs/guides/nextjs)
+
+            요구사항
+              - 다크모드 / 라이트모드를 오갈 수 있도록 한다.
+              - 좌상단에 icon 을 두고 누르면 blog의 theme가 바뀐다.
+              - 새로고침을 해도 theme는 유지된다.
+              - TailwindCSS 해본다 (https://tailwindcss.com/)
+              - 무료 svg 다운로드 (https://www.iconpacks.net/)
+
+          - 코드 블록
+
+            ```javascript
+            코드내용
+            ```
+
+            이게 이쁘게 나와야 하는데..기존 blog 에서는 안 이쁨...
+            
+          - md 에서 ```코드``` 결과물에 스타일을 줄 수 있겠지만…
+            좀 더 재미있는 방법을 찾아보자..
+            md + jsx => mdx
+            https://mdxjs.com/
+
+          - Next.js 도 MDX를 활용해서 페이지를 구성할 수도 있다.
+            https://nextjs.org/docs/advanced-features/using-mdx
+            다만, 우리 강의에서 다룰 내용은 아님
+            blog 프로젝트에서 mdx 를 다룰 수 있게 만들어보자
+
+          - 요구사항
+            posts 폴더에 .md 뿐 아니라 .mdx 도 지원한다.
+            code block 은 이쁘게 노출 시켜준다.
+            code block 우상단에 copy 버튼을 추가한다.
+            copy 버튼을 클릭하면 코드 내용이 복사된다.
+
+          - 설치해야하는 라이브러리 및 파일들
+            yarn add next-mdx-remote react-syntax-highlighter
+            (https://github.com/hashicorp/next-mdx-remote)
+            (https://github.com/react-syntax-highlighter/react-syntax-highlighter)
+            (https://react-syntax-highlighter.github.io/react-syntax-highlighter/demo/)
+
+          [UI]
+          커스텀 하고 싶은 대상 찾기    => Jamstack Themes
+          Styling                     => TailwindCSS
+          MDX                         => MD + JSX
+          react-syntax-highlighter    => CodeBlock 만들어서 복사까지지

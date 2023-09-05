@@ -135,7 +135,7 @@ Part 2. Next.js 시작하기
                 ⭐SSR을 담당하는 함수 : getServerSideProps
                     서버에서 코드가 실행됨 > 클라이언트에서 서버에서 실행된 코드가 확인은 가능하지만 이는 처음 페이지를 호출하여 로딩할 때만 확인이 가능하다
 
-            CSR (Cliend Side Rendering)
+            CSR (Client Side Rendering)
                 - 클라이언트가 그린다
                 - 그린다             : 데이터를 가져와서 그린다
                 - 클라이언트가 그린다 : 클라이언트가 데이터를 가져와서 그린다

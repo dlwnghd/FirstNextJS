@@ -132,8 +132,11 @@ Part 3. Practice : 블로그 프로젝트
                 - DB 조회
 
             ⚠️ 매일매일 SSR, CSR, SSG, ISR에 대해 입으로 말할 수 있도록 연습해야겠다.⚠️
-            - SSR(Server Side Rendering) : 서버쪽에서 데이터를 준비하여 사용자의 화면에 띄우는 것
-            - CSR(Client Side Rendering) : 서버에서 전체 페이지(빈 페이지)를 최초 렌더링하고 사용자가 url입력을 통해 페이지를 요청할 때마다 클라이언트 내(브라우저)에서 랜더링 하는 것을 의미합니다.
+            - SSR(Server Side Rendering)           : 서버에서 데이터를 준비하여 사용자의 화면에 띄우는 것
+            - CSR(Client Side Rendering)           : 서버에서 전체 페이지(빈 페이지)를 최초 렌더링하고 사용자가 
+                                           url입력을 통해 페이지를 요청할 때마다 클라이언트 내(브라우저)에서 랜더링 하는 것을 의미합니다.
+            - SSG(Static Side Generation)          : 빌드 시에 페이지를 미리 생성해둠
+            - ISR(Incremental Static Regeneration) : 빌드 시점에 페이지를 렌더링 한 후, 설정한 시간 마다 페이지를 새로 렌더링.
 
             [Pre-rendering / Data Fetching]
             - Pre-rendering           => SSG 선택 기준
