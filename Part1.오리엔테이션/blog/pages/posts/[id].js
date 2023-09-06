@@ -6,17 +6,18 @@ import utilStyles from '/styles/utils.module.css'
 import { useRouter } from 'next/router'
 import { MDXRemote } from 'next-mdx-remote'
 import CodeBlock from '/components/CodeBlock'
+import { getAllPostIds } from '/lib/posts'
 
 export async function getStaticPaths() {
-  // const paths = getAllPostIds()
+  const paths = getAllPostIds()
 
-  const paths = [
-    {
-      params: {
-        id: 'ssg-ssr',
-      },
-    },
-  ]
+  // const paths = [
+  //   {
+  //     params: {
+  //       id: 'ssg-ssr',
+  //     },
+  //   },
+  // ]
 
   return {
     paths,

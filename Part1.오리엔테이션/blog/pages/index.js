@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Layout, { siteTitle } from '/components/Layout'
 import utilStyles from '/styles/utils.module.css'
 import { getSortedPostsData } from '/lib/posts'
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Date from '/components/Date'
 
