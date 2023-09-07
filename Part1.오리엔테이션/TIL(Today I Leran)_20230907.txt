@@ -1,0 +1,164 @@
+Part 3. Practice : 블로그 프로젝트
+    Ch 04.React Project Next.js로 마이그레이션
+      - CRA = create-react-app
+        - React 프로젝트 스케폴딩 cli 명령
+        - 리액트 프로젝트를 Next.js로 마이그레이션 하는 것으로
+          Next.js에 대해 좀 더 알아볼 수 있다.
+
+      - 바로 해보기
+        (https://nextjs.org/docs/migrating/from-create-react-app)
+
+      먼저, 
+        CRA로 React Project를 하나 만든다.
+        yarn create react-app react-origin
+        yarn create react-app react-next
+
+        react 프로젝트를 한번 실행해본다.
+        yarn start
+
+        react-scripts 제거 yarn remove react-scripts
+        next 설치 yarn add next
+        package.json scripts 수정
+        "dev": "next dev", "build": "next build", "start": "next start"
+        .gitignore 수정
+        .next 추가
+
+        pages 폴더 생성
+        public 폴더 수정
+        index.html 분리하기
+        pages/_document.js pages/_app.js 로 옮기기
+        styles/global.css 생성 및 스타일 코드 옮기고 _app.js 에서 import
+
+        <img> 태그를 Image 로 변경
+        react eject 를 한 프로젝트라면?
+        - CSS, Sass, other assets 등 file loader 설정했다면? Next.js 기본 제공
+
+        - polyfill이나 신규 JS feature를 추가했다면? Next.js 기본 제공
+        - code splitting 설정했다면? Next.js 기본 제공
+        - PostCSS setup 했다면? Next.js 기본 제공
+        - Babel config / Webpack config 설정했다면? Next.js 기본 제공
+
+        react-origin 과 react-next 비교
+
+        [CRA로 만든 리액트 프로젝트를 Next.js로 마이그레이션]
+        CRA / CNA            => create-react-app / create-next-app
+        Next.js 공식문서     => 마이그레이션 가이드가 있음
+        스크립트 등 몇가지    => 간결한 수정으로 convert 가능
+        react eject 한 경우  => 대부분 custom 설정을 Next.js 기본 제공
+
+      React Router
+        (https://reactrouter.com/)
+        (https://www.npmjs.com/package/react-router)
+        (https://npmtrends.com/@reach/router-vs-react-router-vs-react-router-dom-vs-router5-vs-universal-router)
+
+      바로 해보기
+        (https://nextjs.org/docs/migrating/from-react-router)
+
+      먼저, 
+        CRA로 React Router React project를 하나 만든다.
+        yarn create react-app react-router-origin –template react-router-dom
+        yarn create react-app react-router-next –template react-router-dom
+        react-router vs react-router-dom
+
+        react-router 프로젝트를 한번 실행해본다
+        yarn start
+
+        react-router-dom 제거 yarn remove react-router-dom
+        react-scripts 제거 yarn remove react-scripts
+        next 설치 yarn add next
+        package.json scripts 수정
+        "dev": "next dev", "build": "next build", "start": "next start"
+        .gitignore 수정
+        .next 추가
+
+        import { Link } from ‘react-router-dom’ 대체
+        import Link from ‘next/link’
+        App.test.js 제거
+        App.js 내 Router 로직 pages 폴더 구조로 대체
+        _document.js / _app.js / style / Image 적용
+        이번에는 styled-jsx 활용해보기
+
+        Next.js 가 기본 제공하는 것들
+        @loadable/server @loadable/babel-plugin @loadable/webpack-plugin 등
+        scroll restoration 도 next/link 와 next/router를 사용하면 기본 제공
+
+      [React Router 사용 리액트 프로젝트를 Next.js로 마이그레이션]
+        react-router      => 리액트 서드파티 라우터 라이브러리
+        Link => next/link => Router => file system
+        Styled-jsx        => next/link / next/image 등은 따로
+                              > 만약 자식(?)요소 혹은 컴포넌트에게 jsx의 스타일을 주고자 한다면 global을 붙여서 정의해야한다.
+        Next.js 기본 제공 => @loadable/* / scroll restoration
+
+Part 4. Next.js 심화
+    Ch 01.Next.js 공식문서 뜯어보기
+      01.Next.js 공식문서 살펴보기
+
+        공식문서란?
+          언어 / 프레임워크 / 라이브러리 등의 제작자(만든이)가
+          해당 기술에 대해 소개하고
+          더 많은 사람들이 참고하고 활용할 수 있도록 돕고자 만든 가이드
+
+        공식 문서 예시
+          JAVA(https://docs.oracle.com/en/java/javase/18/)
+          React
+          (https://reactjs.org/)
+          (https://devdocs.io/react/)
+
+        공식 문서 예시
+          day.js
+          (https://day.js.org/)
+          TailwindCSS
+          (https://tailwindcss.com/)
+
+        공식 문서는 담고 있는 기술의 특징과 목적에 따라구성이 다르다.
+          언어의 명세
+          라이브러리가 풀려고 하는 문제
+          다른 라이브러리에 비해 좋은 점
+          직접 눈으로 볼 수 있는 예시
+
+          그렇기에 해당 문서가 어떤 식으로 구성되어 있는지 알면
+          공식 문서를 보는데 도움이 된다.
+
+        우리의 프론트엔드 프레임워크 Next.js는?
+          (https://nextjs.org/)
+          Showcase / Docs / Blog / Analytics / Examples / Enterprise
+          만들어 낼 수 있는 예시 / Next.js가 풀고자 하는 문제 / Vercel…
+
+        공식 문서를 보는 이유?
+          해당 기술에 대해 알기 위해서
+          어떤 기술을 이해하기 위해 제일 좋은 방법은? 직접 사용해보는 것
+
+        그래서 공식 문서에는
+          대부분 getting started 섹션이 있다.
+          조금 더 친절한 문서는 아예 수업처럼 구성해둔다.
+
+        우리의 친절한 Next.js는?
+          (https://nextjs.org/learn/foundations/about-nextjs)
+          블로그 예제 뿐 아니라…
+          Next.js 가 풀고자 하는 문제 / Javascript to React / React to Next.js
+          최적화에 대한 접근 까지
+
+        Next.js 강의를 듣는 와중에 공식문서 이야기를 하는 이유는?
+          공식 문서는 해당 기술을 사용하는 동안 끊임없이 들여 봐야 하는 참고서다.
+          Next.js가 비교적 많은 기능을 제공하는 프레임워크라 할지라도 
+          필요한 다른 기술들이 많다.
+          스스로 공식문서를 보면서 습득할 수 있는 능력과 자신감이 필요하다.
+
+        능력과 자신감은 어디서 나오는가?
+          반복 / 숙달에서 나온다.
+          앞으로 심화 강의에서는 최대한 Next.js 공식문서를 함께 보면서 진행할 예정
+        
+        Next.js 도 새로운 버전이 나올 수 있고,
+          그때마다 공식 문서의 구조 혹은 내용이 업데이트 되기도 한다.
+          현재 강의를 보는 과정에서 공식문서의 내용이
+          강의에서 보는 내용과 조금 다르더라도 너무 걱정하지 말자
+          (https://nextjs.org/docs/upgrading)
+
+        공식문서를 살펴보자
+          (https://nextjs.org/docs)
+
+        [혼자 공부하는 방법]
+          공식 문서          => 해당 기술을 만든이가 쓴 소개 / 가이드
+          강조하는 부분      => 해당 기술의 핵심 목적 / 그에 맞춰 구성
+          혼자 공부하는 방법 => 문서를 따라하기 / 어디서 찾을지 알기
+          Next.js 공식문서  => 기본 / 심화 / API / Lear
