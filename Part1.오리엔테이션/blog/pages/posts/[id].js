@@ -1,12 +1,20 @@
-import Head from 'next/head'
-import Layout from '/components/Layout'
-import { getPostData } from '/lib/posts'
-import Date from '/components/Date'
-import utilStyles from '/styles/utils.module.css'
 import { useRouter } from 'next/router'
 import { MDXRemote } from 'next-mdx-remote'
-import CodeBlock from '/components/CodeBlock'
+import dynamic from 'next/dynamic'
+import { getPostData } from '/lib/posts'
+
 import { getAllPostIds } from '/lib/posts'
+import Date from '@components/Date'
+import CodeBlock from '@components/CodeBlock'
+// import Button from '@components/Button'
+
+import utilStyles from '@styles/utils.module.css'
+import { siteTitle } from '@pages/_document'
+import Head from 'next/head'
+
+const Button = dynamic(() => import('@components/Button'), {
+  loading: () => <div>Loading...</div>,
+})
 
 export async function getStaticPaths() {
   const paths = getAllPostIds()
@@ -25,7 +33,9 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, preview }) {
+  console.log(`>>>>>> ${preview}`)
+
   // Add the "await" keyword like this:
   const postData = await getPostData(params.id)
 
@@ -36,36 +46,21 @@ export async function getStaticProps({ params }) {
   }
 }
 
-const Button = ({ children }) => {
-  return (
-    <button
-      className="bg-black dark:bg-white text-lg text-teal-200 dark:text-teal-700 rounded-lg px-5"
-      onClick={() => alert(`thanks to ${children}`)}
-    >
-      {children}
-    </button>
-  )
-}
-
 const components = { Button, CodeBlock }
 
-export default function Post({ postData }) {
+export default function Post({ postData, pathname }) {
   const router = useRouter()
 
   if (router.isFallback) {
     return <div>Loading...</div>
   }
   return (
-    <Layout>
-      <Head>
-        <title>첫번째 글</title>
-      </Head>
-      <h1>첫번째 글</h1>
-      {postData.title}
-      <br />
-      {postData.id}
-      <br />
+    <>
+    <Head>
+      <title>{`${postData.title} - ${siteTitle}`}</title>
+    </Head>
       <article>
+        <h2>pathname : {pathname}</h2>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
         <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
@@ -77,7 +72,6 @@ export default function Post({ postData }) {
           <MDXRemote {...postData.mdxSource} components={components} />
         )}
       </article>
-      <br />
-    </Layout>
+    </>
   )
 }

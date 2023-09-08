@@ -1,9 +1,10 @@
 import Head from 'next/head'
-import Layout, { siteTitle } from '/components/Layout'
-import utilStyles from '/styles/utils.module.css'
-import { getSortedPostsData } from '/lib/posts'
 import Link from 'next/link'
-import Date from '/components/Date'
+import { getSortedPostsData } from '/lib/posts'
+import Date from '@components/Date'
+
+import { siteTitle } from '@pages/_document'
+import utilStyles from '@styles/utils.module.css'
 
 // SSG로 할 때
 export async function getStaticProps() {
@@ -26,7 +27,7 @@ export default function Home({ allPostsData }) {
   // }, [])
   // // *CSR 방식 끝 *
   return (
-    <Layout home>
+    <>
       <Head>
         <title>{siteTitle}</title>
       </Head>
@@ -51,6 +52,6 @@ export default function Home({ allPostsData }) {
           ))}
         </ul>
       </section>
-    </Layout>
+    </>
   )
 }

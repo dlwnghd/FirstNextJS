@@ -1,0 +1,88 @@
+Part 4. Next.js 심화
+    Ch 02.심화 Step 1
+      01.Next.js 심화 1(Compiler & Preview Mode)
+        컴파일러
+          고급 프로그래밍 언어를 실행 프로그램으로 만들기 위해
+          저급 프로그래밍 언어로 바꾸는 데 사용된다.(출처. 위키피디아)
+          고급 언어는 사람이 이해하기 용이
+          저급 언어는 컴퓨터가 이해하기 용이
+          고급 언어 => 저급 언어 변환
+
+        Next.js 의 Compiler
+          (https://nextjs.org/docs/advanced-features/compiler)
+        Rust 로 만들어진 SWC
+          Next.js의 javascript 코드를 transform 하고 minify 하는 역할을 한다.
+          Babel과 Terser를 대체한다.
+
+        Babel
+          Babel is a JavaScript compiler
+          Transpiler(유사한 언어간의 변환)
+          자바스크립트 최신 문법을 구 버전 브라우저에서도 동작할 수 있도록변환
+          (https://babeljs.io/)
+
+        Terser
+          A JavaScript mangler/compressor toolkit for ES6+.
+          mangler(훼손시킴) / compressor(압축시킴) => minify
+          (https://github.com/terser/terser)
+
+        SWC 소개(FEConf 2021)
+          (https://www.youtube.com/watch?v=4RJxyGJQe4o)
+
+        SWC(Speedy Web Compiler)는
+          babel보다 약 17배
+          terser 보다 약 7배
+          빠르다고 한다.
+
+        SWC는 왜 빠른가?
+          싱글 스레드 기반의 Javascript와 달리
+          병렬 처리를 고려한 Rust라는 언어로 만들어져 있기 때문이다.
+          (https://nextjs.org/docs/advanced-features/compiler)
+
+        Preview Mode
+          (https://nextjs.org/docs/advanced-features/preview-mode)
+
+
+        [Compiler / Preview Mode]
+        컴파일러        => 언어를 다른 언어로 변환해주는 도구
+        Babel / Terser => Transpiler / Minifier(mangle&compress)
+        SWC            => Rust 기반이라 병렬처리가 가능해 빠르다
+        Preview Mode   => 쿠키 / getStaticProps를 request time
+
+        Dynamic Import
+          (https://nextjs.org/docs/advanced-features/dynamic-import)
+          컴포넌트를 Lazy load하는 방법
+          dynamic(() => import(‘../components/Button), {suspense: true})
+
+          React 18 미만에서는
+          suspense: true 대신 loading: () => 컴포넌트로
+          로딩 중에 노출할 컴포넌트를 노출할 수 있다.
+
+          ssr: false를 주면
+          client-side 에서만 dynamically load 하게 된다.
+          window 등 존재 여부 판단 하지 않아도 됨
+
+          외부 라이브러리도
+          import 함수를 사용해서 dynamic 하게 load해서 사용할 수 있다.
+          실제로 한번 해보자
+          blog 안에 있는 [id].js 의 Button을 component로 빼보자.
+
+        Automatic Static Optimization
+          정적인 페이지는 .html 으로
+          요청에 맞춰 동작하는 페이지는 .js 로
+          getInitialProps 나 getServerSideProps 가 있다면 .js
+
+          router의 query..
+          client-side 페이지의 경우,
+          hydration 이후에 query 값을 읽을 수 있다.
+
+        Static HTML Export
+          (https://nextjs.org/docs/advanced-features/static-html-export)
+          Next.js 프로젝트를 정적인 파일들만으로 Build 하는 것
+          CDN 등에 올려서 서비스를 제공 가능
+          단, Node.js 서버가 있어야지만 동작하는 기능들은 포기해야함
+
+        [Dynamic Import / Static Export]
+        Dynamic Import            => Lazy load로 초기 청크 사이즈 줄이기
+        Suspense                  => Promise resolved 되어야 렌더
+        Automatic Static Optimize => 알아서 정적 파일과 동적 파일 구분
+        Static HTML Export        => 의도적으로 정적 파일로 export 가능
