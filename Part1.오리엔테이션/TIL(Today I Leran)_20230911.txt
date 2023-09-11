@@ -1,0 +1,191 @@
+Part 4. Next.js 심화
+    Ch 02.심화 Step 1
+      03.Next.js 심화 3(Custom App & Document & Error Page)
+        Absolute Imports and Module Path Aliases
+          (https://nextjs.org/docs/advanced-features/module-path-aliases)
+          Absolute Imports는 해봤었다.
+          Path Aliases를 해보자.
+
+        Custom `App`
+          (https://nextjs.org/docs/advanced-features/custom-app)
+          - Persisting layout between page changes
+          - Keeping state when navigating pages
+          - Custom error handling using componentDidCatch
+          - Inject additional data into pages
+          - Add global CSS
+
+        Layout 을 다시 고치자
+          img => Image
+          _app.js
+          pages/post/write.js
+          pages/index.js
+          pages/posts/[id].js
+
+          - Persisting layout between page changes: Layout
+          - Keeping state when navigating pages: formatDistanceToNow
+          - Custom error handling using componentDidCatch: 나중에
+          - Inject additional data into pages: router.pathname
+          - Add global CSS: 이미 함
+
+        Custom `Document`
+          (https://nextjs.org/docs/advanced-features/custom-document)
+          - <html> <body>
+          - _document는 server 에서 동작 고로, onClick 은 동작하지 않음
+          - import { Html, Head, Main, NextScript } from 'next/document'
+          - not Data Fetching methods
+
+          _document.js 를 생성한다.
+          Layout.js의 Head 내용을 _document로 옮기자
+          title은 pages로 옮기고 페이지마다 커스텀해보자.
+
+        Custom `Error Page`
+          (https://nextjs.org/docs/advanced-features/custom-error-page)
+          자세한 내용은 Error Handling 강의에서
+          pages/404.js 만 커스텀 해보자
+
+        [Custom App / Document / Error Page]
+        Absolute Imports  => Module Path aliases
+        Custom App        => 상태 유지 / Page Component Wrapper
+        Custom Document   => 서버에서 실행 모든 페이지에 공통인 영역
+        Custom Error Page => Error 코드별로 원하는 error page 노출
+
+      04.Next.js 정리
+        [Compiler / Preview Mode]
+        컴파일러       => 언어를 다른 언어로 변환해주는 도구
+        Babel / Terser =>  Transpiler / Minifier(mangle&compress)
+        SWC            => Rust 기반이라 병렬처리가 가능해 빠르다
+        Preview Mode   => 쿠키 / getStaticProps를 request time
+
+        [Dynamic Import / Static Export]
+        Dynamic Import            => Lazy load로 초기 청크 사이즈 줄이기
+        Suspense                  => Promise resolved 되어야 렌더
+        Automatic Static Optimize => 알아서 정적 파일과 동적 파일 구분
+        Static HTML Export        => 의도적으로 정적 파일로 export 가능
+
+        [Custom App / Document / Error Page]
+        Absolute Imports  => Module Path aliases
+        Custom App        => 상태 유지 / Page Component Wrapper
+        Custom Document   => 서버에서 실행 모든 페이지에 공통인 영역
+        Custom Error Page => Error 코드별로 원하는 error page 노출
+
+    Ch 03. 심화 Step 2
+      01. Next.js 심화4(Performance 측정)
+        Web Performance
+          (https://web.dev/vitals/)
+          - Largest Contentful Paint(최대 콘텐츠풀 페인트, LCP): 페이지가 처음으로 로딩된 후 2.5초 이내에 발생
+          - First Input Delay(최초 입력 지연, FID): 상호 작용을 측정(100밀리초)
+          - Cumulative Layout Shift(누적 레이아웃 시프트, CLS): 시각적 안정성을 측정(페이지에서 0.1 이하 유지)
+
+        LCP - (https://web.dev/optimize-lcp/)
+
+        FID - (https://web.dev/optimize-fid/)
+
+        CLS - (https://web.dev/optimize-cls/)
+
+        Google을 활용한 Performance 측정
+          (https://developers.google.com/speed)
+          (https://pagespeed.web.dev/)
+
+        Chrome을 활용한 Performance 측정
+          - Performance
+          - Lighthouse
+          - React debug tool profiler
+
+        Measuring Performance
+          (https://nextjs.org/docs/advanced-features/measuring-performance)
+          - reportWebVitals
+          - metric.name
+          - custom metrics
+
+        [Performance 측정]
+        web.dev         => LCP(2.5s) / FID(100ms) / CLS(0.1)
+        Google          => web url 입력시 점수 측정 가능
+        Chrome          => Performance / Lighthouse
+        reportWebvitals =>  웹서비스에 접근한 사용자의 로그 수집
+
+          > ⚠️자주 사용하는 LightHouse도 정상적으로 작동하지만 업데이트가 되지 않아서 잘못 측정되는 경우가 있다.
+            > 따라서, 하나의 Web Performance 툴로 측정만 하지말고 여러가지 툴을 동시에 사용하는 것을 추천
+      
+      02. Next.js 심화5(Error Handling)
+        Performance
+          Image 관련 warning
+          (Image elements do not have explicit width and height)
+          (https://github.com/vercel/next.js/issues/35091)
+          (https://github.com/GoogleChrome/lighthouse/pull/13737)
+            > ⚠️위 내용이 앞서 설명한 LightHouse에서 정상기능을 찾지 못하여 생긴 이슈 관련한 스크랩이다.
+
+          Error Handling
+          (https://nextjs.org/docs/advanced-features/error-handling)
+          - Handling Errors in Development - Overlay
+          - Handling Server Errors - Custom Error Page
+          - Handling Client Errors - Error Boundaries
+
+          yarn dev 로 실행한 경우
+          overlay로 Error 지점을 노출해준다.
+
+          Error Page
+          (https://nextjs.org/docs/advanced-features/custom-error-page)
+          - 404.js
+          - _error.js
+          - import Error from ‘next/error’
+
+          [Error Handling]
+          Error             => handled vs unhandled
+          Error Handling    => Development / Server / Client
+          Error Page Custom => 404.js / _error.js / next/error
+          Client            => Error Boundary
+      03. Next.js 심화6(React 18과 함께 살펴보기)
+        Error Boundary 관련
+        errorInfo.compoentStack 오류 수정
+          > 에러바운더리에서 errorInfo에 대한 처리가 되지 않던 것을 아래 구문과 같이 처리함
+          ```{this.state.errorInfo && this.state.errorInfo.componentStack}```
+            > ❓constructor 메서드는 무엇인가? 그리고 여기서 왜 쓰였는가?
+              > mdn web docs : 클래스의 인스턴스 객체를 생성하고 초기화하는 특별한 메서드
+                > 다른 클래스 상속 시, 기본 생성자는 자신의 매개변수를 부모 클래스의 생성자로 전달
+                  > ErrorBoundary에 에러가 발생한 매개변수 값을 React18버전에서 제공하는 Component의 생성자로 사용하기 위함
+
+        React 18
+          (https://reactjs.org/blog/2022/03/29/react-v18.html)
+          Automatic Batching / Transitions / New Suspense
+          New Client & Server Rendering APIs / Strict Mode
+          useId / useTransition / useDeferredValue
+          useSyncExternalStore / useInsertionEffect…
+
+        동시성
+          기존에는 상태가 변경되면 update와 렌더링까지 react가 알아서 처리
+          React 18부터 update 와 렌더링 과정에서 중지가 가능
+
+        React 18 with Next.js
+          (https://nextjs.org/docs/advanced-features/react-18/overview)
+
+        Streaming SSR with Suspense
+          (https://nextjs.org/docs/advanced-features/react-18/streaming)
+        Stream 을 활용해서 SSR의 결과물을 업데이트 해준다.
+          (https://nextjs.org/docs/api-reference/next/streaming)
+          client-side에서 server component를 업데이트 할 수 있음
+
+        주의 사항
+          SSR을 활용하면,
+          third party script 로드 시점을 보장할 수 없어진다.
+          next/head => next/script
+          _document.js 로 옮기고 beforeInteractive strategy 적용
+
+        Server Components
+          (https://nextjs.org/docs/advanced-features/react-18/server-components)
+          .server.js .client.js
+            (https://github.com/vercel/next-react-server-components)
+          yarn create next-app server-component --example “https://github.com/vercel/next-react-server-components”
+              > 위 내용은 SSR과 CSR의 차이 및 사용시 다른 점에 대한 내용이였으나 버전 업데이트 및 TS를 사용함으로 인해 적절치 않아짐
+                > 하지만 기본적인 개념은 *.client.js에서는 Server Component가 사용이 가능하고 *.server.js에서는 Client Component 사용이 불가능하다.
+                > client의 경우 기본적으로 server에서 이미 그린 것을 받아서 활용하는 것이 가능하기 때문
+                > server에서는 클라이언트에서 그린 것이 무엇인지 알 수 없기 때문에 활용하는 것이 불가능함
+          Edge runtime
+            (https://nextjs.org/docs/advanced-features/react-18/switchable-runtime)
+            runtime: node.js / edge
+            ssr streaming을 위해서는 web streams를 서포트해야함…
+
+        [React 18과 함께 살펴보기]
+        React 18               => 동시성 / 서버 컴포넌트
+        SSR Streaming          => Suspense children resolved 후 stream
+        React Server Component => .server.js 는 rsc만 / .client.js 는 둘다
+        runtime                => node.js / edge 추천

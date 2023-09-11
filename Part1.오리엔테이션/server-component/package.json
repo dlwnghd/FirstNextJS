@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@types/node": "^18.16.2",
+    "@types/react": "18.2.0",
+    "ms": "3.0.0-canary.1",
+    "next": "13.4.3-canary.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "server-only": "^0.0.1",
+    "typescript": "^5.0.4"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "singleQuote": true,
+    "semi": false,
+    "tabWidth": 2,
+    "trailingComma": "none"
+  }
+}
