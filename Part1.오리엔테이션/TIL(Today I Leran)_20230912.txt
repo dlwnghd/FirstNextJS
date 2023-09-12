@@ -1,0 +1,106 @@
+Part 4. Next.js 심화
+    Ch 04. 심화 Step 3
+      01. Next.js 심화 정리 2
+        [Performance 측정]
+        web.dev         => LCP(2.5s) / FID(100ms) / CLS(0.1)
+        Google web      => url 입력시 점수 측정 가능
+        Chrome          => Performance / Lighthouse
+        reportWebvitals =>  웹서비스에 접근한 사용자의 로그 수집
+
+        [Error Handling]
+        Error             => handled vs unhandled
+        Error Handling    => Development / Server / Client
+        Error Page Custom =>  404.js / _error.js / next/error
+        Client            => Error Boundary
+
+        [React 18과 함께 살펴보기]
+        React 18               => 동시성 / 서버 컴포넌트
+        SSR Streaming          => Suspense children resolved 후 stream
+        React Server Component => .server.js 는 rsc만 / .client.js 는 둘다
+        runtime                => node.js / edge 추천
+      
+      02. Next.js 심화7(Data Fetching API)
+        getInitialProps
+          (https://nextjs.org/docs/api-reference/data-fetching/get-initial-props)
+          async / static method / return serialized data / only in page
+          server-side rendering / SEO
+          disable Automatic Static Optimization
+            > SSR/CSR/SSG/ISR 전체적으로 다 사용가능한 Next.js 함수
+              > 다만 공식 홈페이지 에서도 getServerSideProps와 getStaticProps의 사용을 권장하고 있다.
+                > 아마 오래된 함수이기도 하고 Server와 Client 두 장소에서 다 실행되는 것이 부적절하다고 판단하여 그렇게 한 것 같다.
+
+        getServerSideProps
+          (https://nextjs.org/docs/api-reference/data-fetching/get-server-side-props)
+          export function / pre-render each request
+          not be bundled for the client-side
+          return a object (props or notFound or redirect)
+            > SSR을 위해 만들어진 Next.js 함수
+
+        getStaticPaths
+          (https://nextjs.org/docs/api-reference/data-fetching/get-static-paths)
+          export a function from a page that uses Dynamic Routes
+          statically pre-render all the paths specified by it
+          return paths / fallback (false: 404 / true / ‘blocking’)
+          ISR은 fallback: ‘blocking’ 이어야 가능
+            > Dynaminc Routes와 관련있음
+
+        getStaticProps
+          (https://nextjs.org/docs/api-reference/data-fetching/get-static-props)
+          pre-render at build time / not be bundled for the client-side
+          props preview / previewData…
+          return props / notFound / redirect + revalidate(seconds)
+          read files with process.cwd() (current working directory)
+            > SSG를 위해 만들어진 Next.js 함수
+
+
+        [Data Fetching API]
+        getInitialProps    => static method / Static optimize X 
+        getServerSideProps => request time / props|notFound|redirect
+        getStaticPaths     => paths / fallback(false / true / ‘blocking’)
+        getStaticProps     => preview / revalidate / process.cwd()
+
+      02. Next.js 심화8(Router Link API)
+        Router
+          (https://nextjs.org/docs/api-reference/next/router)
+
+        함수형 컴포넌트에서는 useRouter()를 사용
+        클래스 컴포넌트는 withRouter를 활용
+        pathname / query / asPath / isFallback / basePath / locale / loacles / 
+        defaultLocale / domainLocales / isReady / isPreview
+
+        router.push: history가 쌓이는 이동
+        router.push(url, as, options)
+        router.replace: history가 쌓이지 않는 이동
+        router.replace(url, as, options)
+          > options 중에 scroll이 사용자 경험에 영향을 줄 수 있는 요소 중 하나라고 생각함
+
+        router.prefetch: 미리 페치해오기
+          yarn dev 에서는 동작하지 않음
+          yarn build && yarn start 후 router.push 해보면 알 수 있음
+          router.beforePopState: history popState 때 cb 사용가능
+          return true 하지 않으면 온전히 동작 안함
+            > beforePopState는 '뒤로가기' 이벤트 발생이전에 이벤트를 주기 위해 생성된 next.js 함수
+
+          router.back: 뒤로가기
+          router.reload: 새로고침
+
+          router.events.[on / off]
+          routeChangeStart(url, { shallow })
+          routeChangeComplete(url, { shallow })
+          routeChangeError(error, url, { shallow }) error.cancelled
+          beforeHistoryChange(url, { shallow })
+          hashChangeStart(url, { shallow })
+          hashChangeComplete(url, { shallow })
+
+        Link
+          (https://nextjs.org/docs/api-reference/next/link)
+          href 만 required
+          as / passHref / prefetch / replace / scroll / shallow / locale
+
+        [Router & Link API]
+        Router      => useRouter / withRouter
+        router 이동 => push / replace / back / reload
+        router 기타 => prefetch / beforePopState / events
+        Link        => router 의 페이지 이동 기능
+
+> sitemap-0.xml 파일이 next.js의 기본 gitignore에 추가되어 있지 않다 추후 프로젝트 하기 전에 gitignore에 명시해야함
