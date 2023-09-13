@@ -62,6 +62,7 @@ export default function write() {
     <>
       <Head>
         <title>Write a Post</title>
+        <meta property="og:title" content="My page title" key="title"></meta>
       </Head>
       <h1>Write a post</h1>
       <form onSubmit={handleSubmit}>

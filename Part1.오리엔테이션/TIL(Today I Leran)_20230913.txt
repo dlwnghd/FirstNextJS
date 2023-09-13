@@ -1,0 +1,41 @@
+Part 4. Next.js 심화
+    Ch 04. 심화 Step 3
+      03. Next.js 심화 9(기타 advanced)
+        next/image
+          (https://nextjs.org/docs/api-reference/next/image)
+          - width / height / layout / loader / sizes / quality / priority / placeholder 
+          / style / objectFit / objectPosition / onLoadingComplete / loading / 
+          blurDataURL / lazyBoundary / lazyRoot / unoptimized
+
+        next/script
+          (https://nextjs.org/docs/api-reference/next/script)
+          src / onLoad / onError
+          strategy(beforeInteractive / afterInteractive / lazyOnload / worker)
+
+        next/head
+          (https://nextjs.org/docs/api-reference/next/head)
+          key props를 활용해서 하나만 렌더
+
+        next/amp
+          (https://nextjs.org/docs/api-reference/next/amp)
+          accelerated mobile pages
+            > 모바일 혹은 테블릿과 같은 곳에서 지원되는 컴포넌트
+
+        next/server
+          (https://nextjs.org/docs/api-reference/next/server)
+
+        next/future/image(experimental)
+          (https://nextjs.org/docs/api-reference/next/future/image)
+          - div / span 없이 img만 렌더
+          - canonical style prop 강화 / layout, objectFit, objectPosition 제거
+          - IntersectionObserver 구현 제거
+          - fill 제거 width & height 필수
+            > ⚠️13버전에서는 기존 next/image는 next/legacy/image가 되고
+              next/future/image는 next/image가 되었다.
+
+        기타 Advanced APIs
+        Image          => 이미지 관련 다양한 기능
+        script / head  => strategy / meta key
+        amp / server   => AMP 대응 / Middleware & Edge API
+        future image   => 조금 더 나아간 이미지 컴포넌트
+          > ⚠️next/future/image는 13버전에서 next/image로 변경되었다.
