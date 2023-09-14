@@ -1,0 +1,24 @@
+Part 4. Next.js 심화
+    Ch 04. 심화 Step 3
+      04. Next.js 정리 3
+        [Data Fetching API]
+        getInitialProps    => static method / Static optimize X
+        getServerSideProps => request time / props|notFound|redirect
+        getStaticPaths     => paths / fallback(false / true / ‘blocking’)
+        getStaticProps     => preview / revalidate / process.cwd()
+          > ⚠️SSG, SSR, CSR, ISR에 적재적소에 맞게 사용할줄 알아야 함
+
+        [Router & Link API]
+        Router      => useRouter / withRouter
+        router 이동 => push / replace / back / reload
+        router 기타 => prefetch / beforePopState / events
+        Link        => router 의 페이지 이동 기능
+          > ⚠️12버전과 13버전은 <a>태그의 유무가 달라짐
+
+        [기타 Advanced APIs]
+        Image         => 이미지 관련 다양한 기능
+        script / head => strategy / meta key
+        amp / server  => AMP 대응 / Middleware & Edge API
+        future image  => 조금 더 나아간 이미지 컴포넌트
+          > future image는 13버전에서는 next/image가 되고
+            기존 image는 next/legacy/image가 되었다.
