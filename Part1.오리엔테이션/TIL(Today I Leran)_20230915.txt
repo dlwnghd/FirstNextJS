@@ -1,0 +1,81 @@
+Part 4. Next.js 심화
+    Ch 05. 심화 Step 4
+      01. Next.js 심화 10(configuration)
+        configuration
+          CRA로 만든 프로젝트에서는 webpack config 등을 커스텀 하려면
+          npm run eject 하거나
+          craco(Create React App Configuration Override) 등을 사용해야 했다.
+
+        next.config.js
+          (https://nextjs.org/docs/api-reference/next.config.js/introduction)
+          It gets used by the Next.js server and build phases.
+          우리가 다뤘던 프로젝트 중에 next.config.js 가 필요했던 것은
+          image-app / server-components
+
+        server-components 에 phase와 comment를 추가해보자
+          유의 사항
+          - next.config.js는 Webpack, Babel or TypeScript로 parse 되지 않으니 최신 js 문법을 쓰면 안된다.
+
+          However, none of the configs are required, and it’s not necessary to 
+          understand what each config does. Instead, search for the features 
+          you need to enable or modify in this section and they will show you 
+          what to do.
+
+        환경 변수
+          (https://nextjs.org/docs/api-reference/next.config.js/environment-variables)
+          직접 추가하고 Page에서 써보기
+
+        Base Path
+          (https://nextjs.org/docs/api-reference/next.config.js/basepath)
+          프로젝트의 구조를 커스텀 할때 활용
+
+        Rewrites
+          (https://nextjs.org/docs/api-reference/next.config.js/rewrites)
+          source to destination rewrite
+          * next.config.js 수정후에는 꼭 yarn dev를 다시 실행해줘야함
+
+        Redirects
+          (https://nextjs.org/docs/api-reference/next.config.js/redirects)
+          source to destination redirect
+          * rewrite와의 차이점 browser 주소창 url의 변경 여부
+
+        Headers
+          (https://nextjs.org/docs/api-reference/next.config.js/headers)
+          Page Extensions
+          (https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions)
+          mdx
+
+        CDN Support with Asset Prefix
+          (https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix)
+          CDN에 build 결과물을 올리고 활용할때 사용
+
+        Custom Webpack Config
+          (https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config)
+          Compression
+          (https://nextjs.org/docs/api-reference/next.config.js/compression)
+          disable gzip
+
+        Runtime Configuration
+          (https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration)
+          next/config 활용해서
+          getConfig로 serverRuntimeConfig, publicRuntimeConfig 찍어보기
+
+        Disabling x-powered-by / ETag Generation / HTTP Keep-Alive
+          Setting a custom build directory
+          .next 대신 yarn build 결과물 저장할 경로 지정 distDir: ‘build’
+          next-sitemap 에도 sourceDir: ‘build’ 추가해줘야함
+          Configuring the Build ID / onDemandEntries / 
+
+        Ignoring ESLint / TypeScript Errors
+          exportPathMap / Trailing slash / React strict mode
+          URL Imports / Build Indicator
+
+        [Configuration]
+        필요한 것만          => 다양한 설정이 가능, 찾아서 쓸 수 있으면 됨
+        환경변수             => process.env.*
+        rewrite / redirect  => url 유지 / url 자체 redirect
+        기타                => webpack 부터 기타 세밀한 설정까지
+
+          > next.js의 next.config.js Options에서 설정을 쉽게 하는 방법이 자세히 나와있다.
+            > 필요할 때 찾아서 적절히 사용만 한다면 문제가 없을 것 같다.
+              > ⚠️다만 최신 js문법이 적용되지 않는다는 것에는 주의할 필요가 있다.

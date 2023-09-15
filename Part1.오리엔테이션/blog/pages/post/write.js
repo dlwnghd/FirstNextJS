@@ -1,11 +1,20 @@
+/* eslint-disable no-undef */
 import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import getConfig from 'next/config'
 
 // export async function getSercerSideProps() {
 //   return {}
 // }
+
+// Only holds serverRuntimeConfig and publicRuntimeConfig
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
+// Will only be available on the server-side
+console.log(serverRuntimeConfig.mySecret)
+// Will be available on both server-side and client-side
+console.log(publicRuntimeConfig.staticFolder)
 
 export default function write() {
   const router = useRouter()
@@ -64,7 +73,7 @@ export default function write() {
         <title>Write a Post</title>
         <meta property="og:title" content="My page title" key="title"></meta>
       </Head>
-      <h1>Write a post</h1>
+      <h1>Write a post {process.env.customKey}</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" name="id" placeholder="id" required ref={idRef} />
         <br />
