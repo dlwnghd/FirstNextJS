@@ -1,0 +1,47 @@
+Part 4. Next.js 심화
+    Ch 05. 심화 Step 4
+      02. Next.js 심화 11(배포 관련 심화)
+        Vercel Docs
+          (https://vercel.com/docs)
+
+        Configure a Build
+          (https://vercel.com/docs/concepts/deployments/configure-a-build)
+          git clone –depth=10 (최근 10개 commit history만 pull)
+
+        Analytics
+          (https://vercel.com/docs/concepts/analytics)
+          vercel 탭에서 enable 가능
+
+        Dashboard Settings
+          Project Name / Build & Development Settings
+          Root Directory / Node.js Version
+          Domains
+
+        Integrations
+          DebugBear 를 추가해보자
+          Monitor site speed and Lighthouse scores
+          클릭만으로 가능한 구조
+
+        Git
+          Connected Git Repository / Production Branch / Deploy hooks
+          Serverless Function Region
+          주로 접근하는 Region 으로 두면 상대적으로 더 빠를 것
+
+        Environment Variables
+          (https://vercel.com/docs/concepts/projects/environment-variables)
+
+        Security
+          (https://vercel.com/docs/concepts/projects/overview#logs-and-source-protection)
+
+        Advanced
+          Directory Listing
+          (https://vercel.com/docs/concepts/edge-network/directory-listing)
+
+        웹 서비스 배포
+        Vercel Docs  => 홈페이지 대부분 제품 설명 / Docs 존재
+        Analytics    => Web vital 등 분석
+        Integrations => DebugBear 적용(클릭만으로)
+        기타         => 환경변수 / 도메인 / 보안 등
+          > DebugBear의 경우 14일간의 무료 사용이 가능해서 추후에 insight graph를 확인하려면 유료 서비스를 구매해야한다.
+            > Checkly가 무료로 사용할 수 있는 것 같은데 사용방법은 구글링을 통해서 찾아봐야 할 것 같다.
+              > 추가로 jennifer front라는 것도 찾았는데 next.js에서 사용할려면 어떻게 해야하는지는 좀 더 찾아봐야겠다.
