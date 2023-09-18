@@ -8,10 +8,11 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { Analytics } from '@vercel/analytics/react'
 import { formatDistanceToNow } from 'date-fns'
 import Layout from '@components/Layout'
-import '@styles/globals.css'
 
+import '@styles/globals.css'
 import ErrorBoundary from '@components/ErrorBoundary'
 
 /** 웹 페이지의 기능을 확인하기 위한 function */
@@ -39,6 +40,7 @@ export default function App({ Component, pageProps }) {
       </div>
       <ErrorBoundary>
         <Component {...pageProps} pathname={router.pathname} />
+        <Analytics />
       </ErrorBoundary>
     </Layout>
   )
