@@ -84,6 +84,7 @@ export default function write() {
           required
           ref={titleRef}
         />
+        <br />
         <textarea
           type="text"
           name="content"
