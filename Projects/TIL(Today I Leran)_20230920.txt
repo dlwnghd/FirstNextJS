@@ -1,0 +1,123 @@
+Part 5. Final Project : 커머스 서비스 만들기
+    Ch 01. 개요
+      01. 커머스 서비스를 만드는 이유?
+        포트폴리오
+        내가 어떤 것을 할 수 있는지 / 어떤 고민을 했는지 보여주는 목적
+        내가 만들고 싶은 것을 만들어 보는 재미
+        웹 서비스로 만들 수 있는 다양한 기능을 품을 수 있으면 Best
+          > Next.js를 통해 여러 웹 서비스를 만들 수 있는 능력을 가져가자
+
+        커머스 서비스를 만들 수 있는 기능
+          회원: 회원가입 / 로그인 / 회원탈퇴 / 프로필 / 포인트 / 구매 내역
+          상품: 상품소개 / 찜하기 / 장바구니 / 조회수 / 판매수
+          검색: 검색 / 카테고리 / 랭킹 / 정렬
+          구매: 다양한 Input Form / 구매하기 / 배송단계
+          게시판: 상품평 / 1:1 고객 상담 / FAQ / 질문 게시판 / 공유
+
+        세상 모든 웹 서비스는 커머스 서비스다?
+          넷플릭스
+            회원: 회원가입 / 로그인 / 한 계정에서 여러 유저
+            상품: 프로그램 설명 / 찜하기 / 영상 / 영상 플레이 기록 / 좋아요
+            검색: 검색 / 카테고리(시리즈 / 영화 / 애니메이션) / 인기 순위
+            구매: 구독 결제
+            게시판: FAQ
+
+          깃허브
+            회원: 회원가입 / 로그인 / organization / team
+            상품: 레포지토리 / 코드 / star / 코드 업로드 / 커밋 히스토리
+            검색: 검색 / 카테고리 / 인기순 / 최신순
+            구매: 플랜 결제
+            게시판: issue / comment / pull request
+
+          구글
+            회원: 회원가입 / 로그인 / organization
+            상품: 검색 결과
+            검색: 검색 / 히스토리 / 카테고리(뉴스 / 이미지 / 영상 / 지도)
+            구매:
+            게시판:
+
+          당근마켓
+            회원: 회원가입 / 로그인 / 매너온도 / 거래 기록
+            상품: 물건 상세 / 찜하기
+            검색: 검색 / 카테고리 / 인기매물
+            구매: 당근 페이
+            게시판: 1:1 채팅 / FAQ
+
+        서비스별로 특화된 기능이 차이를 만든다.
+        넷플릭스: 영상 스트리밍
+        깃허브: git
+        구글: 검색 엔진
+        당근마켓: 지역기반
+
+        핵심 기능 외의 웹서비스 구현은 대부분 유사하다.
+        회원 / 상품 / 검색 / 구매 / 게시판
+
+        커머스 서비스 프로젝트를 만들면서 얻어갈 것?
+        - 웹서비스를 구현할 때 필요한 다양한 기능 구현 경험
+        - 어떤 웹서비스든 구현 할 수 있다는 자신감
+        - 커머스 서비스가 목표가 아니라 나만의 포트폴리오 만들기까지
+        - Next.js 를 기반으로 웹서비스를 만들고 배포까지
+
+        [커머스 서비스를 만드는 이유]
+        커머스 서비스 기능     => 회원 / 상품 / 검색 / 구매 / 게시판
+        익숙한 유명 웹서비스들 => 넷플릭스 / 깃허브 / 구글 / 당근마켓
+        서비스 간의 차이       => 핵심 기능으로부터 그외에는 유사
+        만들면서 얻을 것       => 경험 / 자신감 / 나만의 포폴 / 배포
+      
+      02. 프로젝트 생성 및 환경 설정
+        프로젝트 생성
+        commerce
+        Next.js / Typescript
+        yarn create next-app commerce –typescript
+
+        Typescript 서비스 둘러보기
+        (https://www.typescriptlang.org/)
+        TypeScript is JavaScript with syntax for types
+
+        기존에 jsconfig.json => tsconfig.json 에 적용
+        “compilerOptions”: {
+          “baseUrl”: “.”,
+          “paths”: {
+          “@components/*”: [“components/*”]
+          }
+        }
+
+        formatting 관련 설정
+        eslint 이미 있음
+        prettier 추가
+
+        github repository 추가 및 연동
+        (https://github.com/new)
+        깃 커밋하기전에 eslint 와 prettier를 돌리도록 해보자
+        lint-staged & husky
+        (https://github.com/okonet/lint-staged)
+        (https://github.com/typicode/husky)
+
+        lint-staged
+        git staged 상태의 파일들만 타겟으로 뭔가 할 수 있게 해줌
+        husky
+        git hook 동작에 대한 정의를 .git 파일이 아닌 .husky 에서 관리하여
+        repository 에서 공유가 가능하도록 함
+
+        yarn add -D lint-staged husky
+        설치하고 직접 사용해보자
+
+        package.json
+        “lint-staged”: {
+          “*.{js,jsx,ts,tsx}”: [
+          “eslint –fix”,
+          “prettier –write”,
+          “git add”
+          ]
+        }
+
+        yarn husky install
+        yarn husky add .husky/pre-commit "yarn lint-staged --no-stash"
+        .husky 에 pre-commit 설정이 추가됨
+        commit 을 만들어보자
+
+        프로젝트 생성 및 환경 설정
+        프로젝트 생성        => Next.js + Typescript
+        Typescript           => Type을 통해 체계적인 코드 관리
+        Formatting           => eslint / prettier
+        Author들의 액션 통일 => lint-staged / husky
