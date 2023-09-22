@@ -1,0 +1,70 @@
+Part 5. Final Project : 커머스 서비스 만들기
+    Ch 02. 포트폴리오 실습 시작하기
+      02. Prisma & PlanetScale 활용
+        Planet Scale
+          The database for ___
+          The MYSQL-compatible serverless database platform
+          (https://planetscale.com/)
+
+        DB 를 만들어보자
+          (https://docs.planetscale.com/docs/tutorials/planetscale-quick-start-guide)
+
+        Planet Scale
+          - 계정 생성
+          - databse 생성
+          - branch 선택
+          - table 생성
+          - data 추가
+          - 조회 SHOW TABLES; DESCRIBE {table}; SELECT * FROM {table}; 
+
+          CREATE TABLE categories ( id int NOT NULL AUTO_INCREMENT 
+          PRIMARY KEY, name varchar(255) NOT NULL );
+          CREATE TABLE products ( id int NOT NULL AUTO_INCREMENT 
+          PRIMARY KEY, name varchar(255) NOT NULL, image_url 
+          varchar(255), category_id INT, KEY category_id_idx (category_id) );
+
+          Planet Scale DB 연결하기
+          (https://docs.planetscale.com/docs/tutorials/connect-nextjs-app)
+          prisma(https://www.prisma.io/)
+          ORM(Object Relational Mapping) 객체와 DB 맵핑 도구
+          - connect
+          - prisma 용 .env 받기
+
+          예시 살펴보기
+            (https://github.com/prisma/prisma-examples/tree/latest/typescript/rest-nextjs-api-routes)
+
+          yarn add -D prisma
+          yarn add @prisma/client
+          yarn prisma init
+          schema.prisma
+
+          ⚠️yarn prisma db pull : prisma에 만들어진 DB를 pull로 schema.prisma로 가지고 올 수 있는 명령어 
+          yarn prisma generate
+          yarn dev
+
+          DB 추가
+          promote 한 branch는 web console 접근이 막혀있음
+          이유? schema 변경 등으로 인한 문제 방지하기 위해
+          Setting 에서 열어주고 data를 insert 해보자
+
+          Scheme를 바꾸고 싶다면?
+          branch를 만들어야 한다.
+          products 에 createdAt 을 컬럼을 추가하고 싶다.
+          ALTER TABLE products ADD COLUMN createdAt datetime NOT 
+          NULL DEFAULT(now);
+
+          schema.prisma 도 바꾸고
+          createdAt DateTime @default(now())
+          branch 바꿔서 체크하고 branch 배포해보자
+
+        Prisma
+        (https://www.prisma.io/docs/concepts/components/prisma-client/crud)
+
+        [Prisma & Planet Scale]
+        Planet Scale   => 서버리스 DB 제공
+        Prisma         => Typescript 기반 ORM(Object Relationship Mapping)
+        @prisma/client => prisma/schema.prisma 에서 model
+        schema 변경    => 새로운 branch 를 따서 작업
+          > planetScale은 약간 DB의 github버전 같다고 생각하면 좋을 것 같다.
+            정리하면 Front(Next.js) - OBM(prisma) - DB(planetScale)
+            prisma가 Next와 planetScale을 연결하는 다리가 되었다고 생각하면 된다.
