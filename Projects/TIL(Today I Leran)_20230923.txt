@@ -1,0 +1,61 @@
+Part 5. Final Project : 커머스 서비스 만들기
+    Ch 02. 포트폴리오 실습 시작하기
+      03. 스타일링 관련 라이브러리 살펴보기 TailwindCSS, Emotion
+        TailwindCSS
+        (https://tailwindcss.com/docs/guides/nextjs)
+
+        설치
+        - yarn add -D tailwindcss postcss autoprefixer
+        - yarn tailwindcss init -p
+        설정
+        - tailwind.config.js 에 content 추가
+        - global.css 에 @tailwind base / components / utilities 추가
+
+        input tag 한번 꾸며보자
+        (https://tailwindcss.com/docs/hover-focus-and-other-states#placeholder-text)
+
+        Emotion(CSS in JS)
+        Emotion is a library designed for writing css styles with JavaScript.
+        (https://emotion.sh/docs/introduction)
+        (http://blog.vjeux.com/2014/javascript/react-css-in-js-nationjs.html)
+
+        CSS in JS (CSS 가 가지고 있던 문제를 JS 를 활용해서 푼다)
+        - Global Namespace
+        - Dependencies
+        - Dead Code Elimination
+        - Minification
+        - Sharing Constants
+        - Non-deterministic Resolution
+        - Isolation
+
+        CSS in JS 라이브러리들
+        - emotion / Styled-components
+        - Linaria
+        - Stitches
+        다양한 CSS in JS 라이브러리들이 있음
+        (동작 방식에 따라 조금씩 나뉜다.)
+
+        Emotion for react
+        설치
+        - yarn add @emotion/react @emotion/styled
+        설정
+        - button 에 스타일을 줘보자
+        - next.config.js 설정
+        - tsconfig.json 설정
+
+        그 밖의 스타일링 라이브러리
+        - radix-ui(https://www.radix-ui.com/)
+        - mantine(https://mantine.dev/)
+        - next ui(https://nextui.org/)
+        - material ui(https://mui.com/) 등…
+        자주쓰는 컴포넌트들을 미리 만들어 두고 활용할 수 있도록 돕는다.
+
+        npm trends
+        (https://npmtrends.com/@chakra-ui/react-vs-@emotion/react-vs-
+        @mantine/core-vs-@mui/material-vs-@nextui-org/react-vs-material-ui-vs-styled-components-vs-tailwindcss)
+
+        [스타일링 라이브러리 살펴보기]
+        TailwindCSS          => className 기반
+        CSS in JS            => CSS의 단점들을 JS로 보완
+        Emotion              => @emotion/styled @emotion/react
+        디자인 컴포넌트 제공 => radix / mantine / next ui / mui
