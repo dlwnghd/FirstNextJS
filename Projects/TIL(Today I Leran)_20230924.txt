@@ -1,0 +1,89 @@
+Part 5. Final Project : 커머스 서비스 만들기
+    Ch 03. 커머스 기능 구현하기
+      01. 상세 페이지 구현(이미지 다루기) (1)
+        상세 페이지
+        구조는 다양할 수 있음
+        참고할 만한 상세 페이지를 살펴보자
+
+        아마존
+          (https://www.amazon.com/-/ko/dp/B075SDMMMV)
+        나이키
+          (https://www.nike.com/kr/ko_kr/t/men/fw/nike-sportswear/DJ3911-100/GxA3Mq/air-force-1-low-retro)
+
+        에어비앤비
+          (https://www.airbnb.co.kr/rooms/33031953)
+        Trip.com
+          (https://kr.trip.com/travel-guide/attraction/hong-kong/ocean-park-hong-kong-10558616)
+
+        원하는 기능을 찾아가는 방법
+        서비스를 찾아서 inspector 로 살펴보거나
+        키워드를 찾아서 npm 에서 검색하거나
+        라이브러리를 찾아서 npm trends로 찾아보거나
+        마땅한 라이브러리를 못찾으면 커스텀하거나 component ui 찾아본다
+
+        이미지 슬라이드 / 이미지 갤러리 찾아보기
+          (https://alvarotrigo.com/blog/react-carousels/)
+          (https://npmtrends.com/nuka-carousel-vs-react-slick-vs-react-slider-vs-react-swipe-vs-react-swiper-vs-slick-carousel-vs-swiper)
+          (https://npmtrends.com/react-gallery-swiper-vs-react-grid-gallery-vs-react-image-gallery-vs-react-image-lightbox-vs-react-image-slider)
+        
+        하나를 선택해보자
+        react-image-gallery
+          (https://github.com/xiaolin/react-image-gallery)
+        demo
+          (https://www.linxtion.com/demo/react-image-gallery/)
+
+        yarn add react-image-gallery
+        globals.css 추가
+        @import '~react-image-gallery/styles/css/image-gallery.css';
+
+        next/image를 활용할 수 있는 라이브러리를 선택해보자
+        nuka-carousel
+        (https://github.com/FormidableLabs/nuka-carousel)
+
+        yarn add nuka-carousel
+        next/image 활용
+        next.config.js에 이미지 도메인 등록
+
+        조금 더 확장해보자
+        여러 옵션을 실험해보자
+
+        요구사항
+        - 큰 이미지 슬라이드는 스스로 무한히 돌아가고
+        - 큰 이미지 밑에는 작은 섬네일들이 있고
+        - 섬네일을 누르면 슬라이드가 바뀌도록
+
+        추가 고려 사항
+        bundle phobia
+        (https://bundlephobia.com/)
+        import cost
+        (https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost)
+
+        [이미지 다루기]
+        상세 페이지     => 이미지 / 글 / 영상 …
+        구성 고려하기   => 다른 서비스 참고
+        이미지 슬라이드 => 구현 도구 찾기
+        라이브러리 선택 => 번들 사이즈 고려
+          > ⚠️url을 통한 이미지를 들고 올때는 'next.config.js'파일에서 해당 파일을 불러오는 경로를 사용할 수 있도록 정의해 주어야 한다.
+            (ex)
+              /** @type {import('next').NextConfig} */
+              const nextConfig = {
+                reactStrictMode: true,
+                swcMinify: true,
+                compiler: {
+                  emotion: true,
+                },
+                images: {
+                  domains: ['picsum.photos', 'raw.githubusercontent.com'],
+                },
+              }
+
+              module.exports = nextConfig
+          > ❓마지막에 번들 사이즈 즉 import해오는 패키지들의 크기에 대해 중요하다고 말해주었는데
+            어떤 사이즈부터 조금 크다고 판단하는 것이 좋을까?
+            > ✅bundle-analyzer를 이용하여 크다고 판단되는 번들을 해결해나가는 방법이 있다.
+              참조 사이트
+                - (공식 사이트) : https://www.npmjs.com/package/@next/bundle-analyzer
+                - (블로그1)     : https://velog.io/@bjy100/Next.js-bundle-size
+                - (블로그2)     : https://velog.io/@pds0309/nextjs-bundle-analyzer%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EC%9D%BC%EA%B8%B0
+                - (블로그3)     : https://velog.io/@leehyunho2001/nextbundle-analyze
+            > 현재 commerce의 경우 파일들의 크기 및 번들링해오는 패키지들이 다 작아서 현재는 더 개선할 수는 없지만 LightHouse외에 다른 최적화 방법을 찾은 것이 매우 좋다.
