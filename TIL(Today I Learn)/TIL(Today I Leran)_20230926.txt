@@ -1,0 +1,70 @@
+Part 5. Final Project : 커머스 서비스 만들기
+    Ch 03. 커머스 기능 구현하기
+      03. 상품 목록 구현
+        목록(리스트)은?
+        같은 위계의 데이터를 나열하는 것
+        웹서비스에서 가장 많이 쓰이는 구현 대상일 듯
+
+        커머스
+        상품 목록 / 찜하기 목록 / 구매 내역 / 상품평 목록 / 검색 결과 등
+        다른 서비스
+        블로그 글 목록 / 뉴스 목록 / 댓글 목록 / 웹툰 목록 / 웹툰 회차 목록
+        강의 목록 / 강의 회차 목록…
+        모든 게 다 목록
+
+        리스트 구현의 핵심은?
+        더보기 로직
+        DB에 들어있는 모든 내역을 한번에 조회하고 보여주는 것은 비효율
+        적절하게 나눠서 조회하고 보여줘야 한다.
+
+        일반적으로
+        page 개념을 활용
+        페이지당 n개의 목록을 조회하고 보여주는 식
+
+        보여지는 UI로는
+        - pagination(페이징 처리)
+        - load more button(더보기)
+        - Infinite scroll(무한 스크롤)
+
+        Load More Button 은 버튼만 있으면 구현 가능
+        일단 products table 에 데이터를 더 담자
+        products.ts 파일을 만들고 ts-node로 실행해보자
+        yarn add -D ts-node
+
+
+        price 컬럼 추가부터 하자
+        ALTER TABLE products ADD price INT NOT NULL DEFAULT 20000;
+          > 저번과 같이 select @@sql_mode;를 수정하고 추가해야한다.
+
+        get-products.ts 가 limit와 offset을 활용하도록 만들어보기
+        (https://www.prisma.io/docs/concepts/components/prisma-client/pagination)
+
+        next/image 에 blur 효과 주기
+        blurDataUrl 생성
+        (https://png-pixel.com/)
+
+        Pagination 은 @mantine/core 에서 제공하는 컴포넌트를 사용해보자
+        Pagination을 위해서는 목록의 전체 갯수를 알아야 함
+        get-products-count.ts 만들기
+          > ⚠️yarn add @mantine/core @matine/hooks를 하면 7버전이 다운로드 되었는데 immutable과 같은 버전 충돌 오류가 생겼었다.
+            영상에서 사용했던 버전인 5버전을 활용하여 해결하기는 하였으나 추후 이러한 버전 문제는 좀 더 빠르게 파악하고 해결할 수 있도록 노력해야겠다.
+            > yarn add @mantine/core@^5.0.1  @mantine/hooks@^5.0.1
+
+        Infinite scroll 은 스크롤이 하단에 도달했는지 판단이 필요
+        그 판단을 위해
+        scroll event를 활용할 수 도 있고,
+        intersection observer를 활용할 수도 있다.
+        scroll event 를 활용하면 잦은 호출을 방지하기 위해 throttle 을 적용하거나
+        requestAnimationFrame(rAF)를 활용하는 것이 좋다.
+
+        무한 스크롤을 했을 경우,
+        React 에서 한 화면에 너무 많은 컴포넌트를 들고 있는 경우가 발생
+        로드한 컴포넌트가 늘어날수록 느려지는 현상이 발생할 수 있음
+        그럴때는 Virtual Scroll(가상 스크롤)을 활용할 수 있음
+        n개의 컴포넌트만 그리고 이 요소를 재활용 할 수 있도록 해줌
+
+        [리스트 다루기]
+        리스트      => 같은 위계의 데이터 나열
+        방식        => 페이지네이션 / 더보기 / 무한 스크롤
+        ts-node     => cli 상에서 ts 파일을 실행해주는 도구
+        가상 스크롤 => 한 화면에서 다룰 컴포넌트 갯수 제한
