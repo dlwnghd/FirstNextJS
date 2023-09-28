@@ -1,0 +1,41 @@
+Part 5. Final Project : 커머스 서비스 만들기
+    Ch 03. 커머스 기능 구현하기
+      04. 카테고리 구현
+        카테고리 데이터 확장
+        운동화 / 티셔츠 / 바지 / 모자 / 후드
+        Sneakers / t-shirt / pants / cap / hoodie
+
+        기존 Clothing => SNEAKERS
+        UPDATE categories SET name=”SNEAKERS” WHERE id = 1;
+        4개 새로 추가
+        INSERT INTO categories(name) VALUES('T-SHIRT');
+        INSERT INTO categories(name) VALUES('PANTS');
+        INSERT INTO categories(name) VALUES('CAP');
+        INSERT INTO categories(name) VALUES('HOODIE');
+
+        쇼핑몰 데이터 추가하기
+        (이건 각자 해보세요.)
+        prisma/product.ts 활용해서 원하는 이미지와 이름들을 추가해서 카테
+        고리 5종류 고르게 DB에 주입해주세요.
+
+        카테고리 id가 1인 모든 제품을 조회 하려면?
+        where 로 category_id = 1 을 조회하면 됨
+        (https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#where)
+
+        카테고리 컴포넌트 만들기
+        mantine의 segmented-control 활용
+        (https://mantine.dev/core/segmented-control/)
+
+        (api) get-categories api 먼저 만들고
+        (components) segmented-control 로 보여주고
+        (기능) 선택시 get-products / get-products-count 를 수정해주자
+        category
+        일반적인 작업 순서
+        데이터 > 컴포넌트 > 기능
+
+
+        [데이터 분류 및 필터링]
+        카테고리 확장 => 다양한 카테고리로 상품을 묶자
+        데이터 추가   => DB에 원하는 값을 추가하는 연습
+        where        => 그룹핑 조건
+        mantine      => 기본적인 컴포넌트 ui 제공
