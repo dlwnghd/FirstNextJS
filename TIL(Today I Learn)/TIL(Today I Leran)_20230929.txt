@@ -1,0 +1,57 @@
+Part 5. Final Project : 커머스 서비스 만들기
+    Ch 03. 커머스 기능 구현하기
+      05. 검색 구현
+        검색이란?
+        저번 시간에 다룬 데이터 필터링의 확장
+        이전에는 category_id 로 필터했다면
+        이번에는 filter나 keyword 로 해보자
+
+        정렬 Filter 기능을 만들어보자
+        가격 높은 순 / 가격 낮은 순 / 최신 순
+        mantine 의 select 활용
+        (https://mantine.dev/core/select/)
+        (https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#orderby)
+
+        DB 조회 방법 알아보기
+        Prisma API
+        (https://www.prisma.io/docs/concepts/components/prisma-client/crud)
+        (https://www.prisma.io/docs/reference/api-reference/prisma-client-reference)
+
+        contains
+        (https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#contains)
+
+        검색 Input 컴포넌트 구현
+        - Input 으로 keyword get-products 조회
+        - no Data 컴포넌트 만들기
+        - Debouncing useDebounce 훅 만들기
+        - 캐시 활용하도록 하기
+
+        Input 컴포넌트
+        (https://mantine.dev/core/input/)
+        yarn add @tabler/icons
+        (https://tablericons.com/)
+
+        Input으로 검색 결과 조회하기
+        get-products 에 조건 추가
+        skip / take / category / filter / keyword
+
+        no data 상태에 보여줄 컴포넌트 만들기
+        EmptyList
+
+        키보드 칠때마다 조회하지 않도록
+        debounce 기능 추가
+        useDebounce 훅 만들어서 활용해보자
+
+        React-query를 활용해보자
+        data-fetching library
+        (https://tanstack.com/query/v4)
+        yarn add @tanstack/react-query
+
+        같은 keyword 로 조회시 다시 api 호출하지 않고
+        react-query 의 캐시를 활용하도록 하자
+
+        [데이터 필터링 심화]
+        정렬 필터 추가      => asc / desc
+        search             => contains
+        Input 이벤트 최적화 => debounce
+        캐시 활용           => react-query
