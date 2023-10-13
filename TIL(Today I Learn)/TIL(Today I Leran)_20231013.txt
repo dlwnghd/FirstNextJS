@@ -1,0 +1,43 @@
+Part 5. Final Project : 커머스 서비스 만들기
+    Ch 03. 커머스 기능 구현하기
+      10. 장바구니 UI 구현
+        일단 전반적인 공통 UI를 정리하자
+        /products/page 를 홈으로
+        Header 만들고
+        Home / Cart / User 정보를 보여주자
+        Layout을 공통화 처리하자
+
+        /auth/login 도 정리하자
+        Button 색상도 블랙으로 맞추자
+        이미지 blur도 블랙톤으로 바꾸자(https://png-pixel.com/)
+        상품상세 이미지 비율도 수정하자
+
+        상품 상세에
+        장바구니에 넣을 수 있는 Form을 만들자
+        수량용 Input
+        (https://ui.mantine.dev/category/inputs)
+        Controlled 로 바꿔 부모에게 책임을 전가하자
+
+        최소 수량 validate 함수 추가
+        TODO: 추가해두고 카트로 보내자
+        카트의 기본 UI 만들자
+        Item 으로 내역 한줄을 분리하자
+
+        수량을 직접 수정할 수 있도록 하자
+        업데이트 아이콘을 추가해두자
+        장바구니의 내역을 합계를 보여주는 UI를 만들고
+        주문하기 버튼을 추가하자
+
+        장바구니 하단에
+        추천 상품을 나열해주자
+        get-products api의 오류를 찾아서 고치자
+
+        [장바구니 UI 구현]
+        공통 UI         => Layout 정리 / Header 만들기
+        장바구니 진입점 => 상품상세와 Cart Icon
+        데이터가 없을때 => MockData를 활용하거나 TODO 붙이기
+        api 고치기      => 적절한 console log
+
+        ⚠️CountControl.tsx를 생성 시 mantine의 버전이 달라져서 해당 컴포넌트를 github에서 가져옴
+          => @tabler/icons 패키지 호출에 오류가 발생
+            ✅@tabler/icons-react로 수정
