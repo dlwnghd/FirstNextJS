@@ -1,0 +1,57 @@
+Part 5. Final Project : 커머스 서비스 만들기
+    Ch 03. 커머스 기능 구현하기
+      11. 장바구니 기능 구현
+        찜하기한 목록 조회 기능 만들기
+        get-wishlists api를 만들고
+        wishlist page 만들어서 목록 그리고
+        Header에 찜하기 진입점을 만들자
+
+        Cart 테이블 만들기
+        필요한 내용
+        - userId
+        - productId
+        - quantity
+        - amount
+
+        CartItem 을 그리는데 필요한
+        price / name / image_url은?
+        products 테이블에서 꺼낼 것
+
+        add-cart api를 만들고
+        상품 상세에서 장바구니 추가하는 기능을 붙이자
+
+        Cart 테이블에서 조회해보자
+        SELECT * FROM Cart;
+
+        Cart 테이블을 조회하면서 productId를 통해
+        products 도 조회해보자
+        SELECT * FROM Cart as c JOIN products as p WHERE 
+        c.productId=p.id;
+
+        id가 조금 이상하다
+        고쳐보자
+        SELECT c.id, userId, price, quantity, amount, image_url, name, 
+        productId FROM Cart as c JOIN products as p WHERE 
+        c.productId=p.id
+
+        get-cart api 생성해보자
+        join 문은 복잡하니깐 SQL문을 그대로 보내보자
+        prisma.$queryRaw``
+
+        update-cart api를 만들고 update 시켜보자
+        optimistic update 활용
+        update 하자마자 cart의 우측 내역이 업데이트 되도록 하자
+
+        delete-cart 를 통해 추가된 내용을 삭제하자
+        마찬가지로
+        optimistic update
+
+        add-cart 가 조금 문제가 있다
+        add-cart 한게 바로 반영이 안되는 문제가 있음
+        addCart 하고 router.push 하는 타이밍을 조정해주면 됨
+
+        [장바구니 기능 구현]
+        찜하기      => 내가 찜한 목록 구현
+        Cart 테이블 => products 테이블에 있는 정보는 X
+        JOIN        => Cart + products 으로 데이터를 완성
+        queryRaw    => prisma 에서 SQL 문을 직접 사용
