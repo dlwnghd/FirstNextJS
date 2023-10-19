@@ -1,0 +1,50 @@
+Part 5. Final Project : 커머스 서비스 만들기
+    Ch 03. 커머스 기능 구현하기
+      13. 후기 글 구현
+        후기 요구사항
+        배송완료된 주문에 대해서만
+        상품마다 후기를 작성할 수 있게 한다
+
+        진입점
+        배송 완료된 주문의
+        OrderItem 마다 후기작성 버튼 노출
+
+        Comment 테이블을 만들자
+        - userId
+        - orderItemId
+        - rate
+        - contents
+        - images
+        - updatedAt
+
+        model Comment {
+        id Int @id @default(autoincrement())
+        userId String
+        oredrItemId Int @unique
+        rate Int
+        contents String?
+        images String?
+        updatedAt DateTime @updatedAt
+        }
+
+        기능 만들기
+        get-comment(작성 중인 후기 있는지 체크 / 작성 권한 있는 사람만)
+        update-comment
+        get-comments(productId 기준으로)
+
+        /pages/comment/edit?orderItemId
+        후기 작성 페이지
+        - Editor 활용
+        - 별점 입력(https://mantine.dev/core/slider/)
+
+        후기 목록
+        - 상품상세
+        - 반복해서 사용할 Comment 컴포넌트 만들기
+        - 주문 상세 내용까지 노출
+        - (추가 미션) 내 후기 목록
+
+        [후기 글 구현]
+        요구사항    => OrderItemId 당 하나씩 작성
+        후기 테이블 => 별점이 메인 / 글 & 이미지는 옵션
+        후기 작성   => Editor 활용
+        후기 목록   => 상품 상세에서 해당 상품 관련 후기 목록
