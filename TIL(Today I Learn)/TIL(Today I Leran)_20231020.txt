@@ -1,0 +1,45 @@
+Part 5. Final Project : 커머스 서비스 만들기
+    Ch 03. 커머스 기능 구현하기
+      14. 후기 이미지 구현
+        이미지 업로드
+        DB에 이미지를 저장할 수 있는가?
+
+        할 수 있더라도 비효율
+        File은 File을 저장하는 곳에 저장하고
+        DB에는 url만 저장하는 것이 일반적
+
+        웹서비스에서 이미지 업로드하는 과정
+        - File을 저장소에 등록하고 url을 받는다.
+        - url을 DB에 저장한다.
+
+        Image를 저장하고 url을 받기위해
+        Image hosting 서비스를 활용할 수도 있음
+        cloudflare / firebase / aws s3 등…
+        (https://developers.cloudflare.com/images/cloudflare-images/tutorials/integrate-cloudflare-images/)
+        유료인 경우가 많음
+
+        ImgBB
+        (https://imgbb.com/)
+
+        Page에서
+        Input type=file 로 ImgBB에 파일을 올리고
+        url을 생성하자
+        url로 미리보기를 구현해보자
+
+        생성된 url을 DB 에 저장하자
+        기존 후기 작성할때 images에
+        url 목록을 , 로 조인해서 저장하고 보여줄때는 분리해서 보여주자
+
+        comment/edit 페이지
+        이미지 업로드 할 수 있는 기능과
+        프리뷰 기능 추가
+
+        상품상세에서 보여주는
+        comment 상세에 Images를 노출하자
+        다중 파일을 처리해보자
+
+        [후기 이미지 구현]
+        이미지 업로드    => Input type file
+        Storage에 저장   => Image hosting 서비스 활용
+        URL만 DB에 저장  => 후기에 이미지 url 들을 저장
+        후기 글 + 이미지 => 글 영역 하단에 이미지 배치
